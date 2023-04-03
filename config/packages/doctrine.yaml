@@ -1,5 +1,10 @@
 doctrine:
     dbal:
+        types:
+            geometry:   CrEOF\Spatial\DBAL\Types\GeometryType
+            point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
+            polygon:    CrEOF\Spatial\DBAL\Types\Geometry\PolygonType
+            linestring: CrEOF\Spatial\DBAL\Types\Geometry\LineStringType
         url: '%env(resolve:DATABASE_URL)%'
 
         # IMPORTANT: You MUST configure your server version,
@@ -16,6 +21,15 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            numeric_functions:
+                st_contains:     CrEOF\Spatial\ORM\Query\AST\Functions\MySql\STContains
+                contains:     CrEOF\Spatial\ORM\Query\AST\Functions\MySql\Contains
+                st_area:         CrEOF\Spatial\ORM\Query\AST\Functions\MySql\Area
+                st_geomfromtext: CrEOF\Spatial\ORM\Query\AST\Functions\MySql\GeomFromText
+                st_intersects:     CrEOF\Spatial\ORM\Query\AST\Functions\MySql\STIntersects
+                st_buffer:     CrEOF\Spatial\ORM\Query\AST\Functions\MySql\STBuffer
+                point: CrEOF\Spatial\ORM\Query\AST\Functions\MySql\Point
 
 when@test:
     doctrine:

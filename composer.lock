@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "174b1f27c1a2d4c84f6c52806aad8ac7",
+    "content-hash": "91fa21f70058e55a50b89a329d94562a",
     "packages": [
         {
             "name": "creof/doctrine2-spatial",
-            "version": "dev-master",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creof/doctrine2-spatial.git",
-                "reference": "8ce00f184135656723d6a5f8b663b1c9466fbdc9"
+                "reference": "58ea5fae1c1b450ee08d7dac25cd9e8f5e6fdebd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creof/doctrine2-spatial/zipball/8ce00f184135656723d6a5f8b663b1c9466fbdc9",
-                "reference": "8ce00f184135656723d6a5f8b663b1c9466fbdc9",
+                "url": "https://api.github.com/repos/creof/doctrine2-spatial/zipball/58ea5fae1c1b450ee08d7dac25cd9e8f5e6fdebd",
+                "reference": "58ea5fae1c1b450ee08d7dac25cd9e8f5e6fdebd",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,6 @@
                 "phpunit/phpunit": "<5.0",
                 "satooshi/php-coveralls": "~1.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -66,7 +65,7 @@
                 "issues": "https://github.com/creof/doctrine2-spatial/issues",
                 "source": "https://github.com/creof/doctrine2-spatial/tree/master"
             },
-            "time": "2021-07-06T17:41:57+00:00"
+            "time": "2017-07-13T16:48:25+00:00"
         },
         {
             "name": "creof/geo-parser",
@@ -9957,9 +9956,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "creof/doctrine2-spatial": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
