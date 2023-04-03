@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\UserFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query as ORMQuery;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -56,28 +59,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Query
+    */
+   public function findAllVisibleQuery(UserFilter $search): ORMQuery
+   {
+        $query = $this->findVisibleQuery();
+        if($search->getName()){
+            $query = $query ->andWhere("u.login LIKE :name OR u.email LIKE :name")
+                            ->setParameter('name', '%'.$search->getName().'%');
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        }
+        if($search->getRoles()){
+            $query = $query ->andWhere('u.roles LIKE :roles')
+                            ->setParameter('roles', '%'.$search->getRoles().'%');
+        }
+        if($search->getIsVerified()){
+            $query = $query ->andWhere('u.isVerified = :isverified')
+                            ->setParameter('isverified', $search->getIsVerified());
+        }
+        return $query->getQuery();
+   }
+
+    public function findVisibleQuery(): ORMQueryBuilder
+    {
+        return $this->createQueryBuilder('u');
+    }
 }
