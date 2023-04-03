@@ -11,3 +11,5 @@ import './styles/global.scss';
 // start the Stimulus application
 import './bootstrap';
 import $ from 'jquery';
+
+import './js/sb-admin/sb-admin';
