@@ -10,16 +10,20 @@
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
-        <div class="row gx-3 mb-3">
+        <div class="form-group row gx-3 mb-3">
+            <div class="col-md-6">
             {{ form_row(registrationForm.login)}}
-        </div>
-        <div class="row gx-3 mb-3">
+            </div> 
+            <div class="col-md-6">
             {{ form_row(registrationForm.email)}}
+            </div>
         </div>
-        <div class="row gx-3 mb-3">
+        <div class="form-group row gx-3 mb-3">
+            {# <div class="col-md-12"> #}
             {{ form_row(registrationForm.plainPassword)}}
+            {# </div> #}
         </div>
-        <div class="row gx-3 mb-3">
+        <div class="form-group row gx-3 mb-3">
             <!-- Form Group (location)-->
             <div class="col-md-12">
                 <div class="input-group">
@@ -36,18 +40,20 @@
 
                 <div class="col-xs-12 col-9">
                     <div
-                            {{ stimulus_controller('google-place', {
-                                'page': "form",
-                                'form': 'registration',
-                            }) }}
+                        {{ stimulus_controller('google-place', {
+                            'page': "form",
+                            'form': 'registration',
+                        }) }}
                     >
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row gx-3 mb-3">
+        <div class="form-group row gx-3 mb-3">
+            <div class="col-md-6">
             {{ form_row(registrationForm.agreeTerms)}}
+            </div>
         </div>
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-outline-primary">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

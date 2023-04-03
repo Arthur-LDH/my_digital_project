@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,26 +45,37 @@ class RegistrationFormType extends AbstractType
             // instead of being set onto the object directly,
             // this is read and encoded in the controller
             'mapped' => false,
-            'attr' => [
-                'autocomplete' => 'new-password',
-                'placeholder' => 'Mot de passe',
-            ],
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Veuillez entrer un mot de passe',
-                ]),
-                new Length([
-                    'min' => 6,
-                    'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} charactères',
-                    // max length allowed by Symfony for security reasons
-                    'max' => 4096,
-                ]),
-            ],
-            'label' => 'Mot de passe',
-            'row_attr' => [
-                'class' => 'form-floating',
-            ],
+            'type' => PasswordType::class,
             'required' => true,
+            'first_options' => [
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'Mot de passe',
+                    ],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} charactères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+                'label' => 'Mot de passe',
+                'row_attr' => [
+                    'class' => 'form-floating col-6 pe-2'
+                ],
+            ],
+            'second_options' => [
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'Mot de passe',
+                    ],
+                'label' => 'Confirmer le mot de passe',
+                'row_attr' => [
+                    'class' => 'form-floating col-6 ps-2'
+                ],
+            ]
+            
         ])
         ->add('address', AddressType::class, [
             'row_attr' => [

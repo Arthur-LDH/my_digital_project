@@ -19,16 +19,6 @@ class AddressType extends AbstractType
             ->add('street')
             ->add('postal_code')
             ->add('city')
-//            ->add('detail')
-			->add('detail', null, [
-				'label' => 'Complément d\'adresse',
-				'attr' => [
-					'placeholder' => 'Complément d\'adresse',
-				],
-				'row_attr' => [
-					'class' => 'form-floating'
-				],
-			])
             ->add('coordinates')
 //            ->add('user')
         ;

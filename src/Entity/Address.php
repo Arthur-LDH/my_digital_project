@@ -4,10 +4,8 @@ namespace App\Entity;
 
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-#[Broadcast]
 class Address
 {
     #[ORM\Id]
