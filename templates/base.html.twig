@@ -12,6 +12,9 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6tHSrMfIWaUeuNP6pcS6PrK1XzMEEXyk&libraries=places&callback=Function.prototype">
+        </script>
     </head>
     <body>
         {% block body %}{% endblock %}
