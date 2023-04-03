@@ -174,20 +174,14 @@ export default class extends Controller {
                 houseNumber: houseNumber,
                 neighborhood: neighborhood
             }
-            console.log(addressArray);
-            console.log(formValue);
-            console.log(pageValue);
             if (pageValue == "form" && formValue != null) {
                 document.getElementById(formValue + "_form_address_coordinates").value = addressArray.latitude + " " + addressArray.longitude;
-                // document.getElementById("register_longitude").value = addressArray.longitude;
                 document.getElementById(formValue + "_form_address_postal_code").value = addressArray.cp;
                 document.getElementById(formValue + "_form_address_city").value = addressArray.city;
                 document.getElementById(formValue + "_form_address_street").value = addressArray.street;
                 document.getElementById(formValue + "_form_address_house_number").value = addressArray.houseNumber;
-                // document.getElementById("register_neighborhood").value = addressArray.neighborhood;
 
             }
-            // sendToListingAddrController(addressArray);
         }
     }
 }
