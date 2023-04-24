@@ -1,13 +1,13 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Edit {{ user.login }}{% endblock %}
+{% block title %}Modifier catégorie {{ category.name }}{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1>Modifier catégorie - {{ category.name }}</h1>
 
-    {{ include('admin/user_crud/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/category_crud/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_admin_user_index') }}">back to list</a>
+    <a href="{{ path('app_admin_category_index') }}">Retour</a>
 
-    {{ include('admin/user_crud/_delete_form.html.twig') }}
+    {{ include('admin/category_crud/_delete_form.html.twig') }}
 {% endblock %}
