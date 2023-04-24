@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user/crud')]
 class UserCrudController extends AbstractController
@@ -45,16 +46,22 @@ class UserCrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $address = $form->get('facturation_address')->getData();
-            $address->setUser($user);
+            $address = $form->get('address')->getData();
+            $address->setIdUser($user);
             $this->entityManager->persist($address);
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
@@ -76,15 +83,21 @@ class UserCrudController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $address = $form->get('facturation_address')->getData();
-            $address->setUser($user);
+            $address = $form->get('address')->getData();
+            $address->setIdUser($user);
             $this->entityManager->persist($address);
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);

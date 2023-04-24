@@ -8,7 +8,7 @@ export default class extends Controller {
     }
 
     connect() {
-        let page = form;
+        let page = this.pageValue;
         let form = this.formValue;
         console.log("page : " + page);
         console.log("form : " + form);
@@ -85,7 +85,7 @@ export default class extends Controller {
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             fillFields();
         })
-        
+
         // Select first result when enter is pressed
         const selectFirstOnEnter = function (input) {  // store the original event binding function
             const _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
