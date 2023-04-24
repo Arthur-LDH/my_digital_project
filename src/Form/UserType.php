@@ -129,6 +129,7 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'data_class' => Address::class,
             ])
+
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event)

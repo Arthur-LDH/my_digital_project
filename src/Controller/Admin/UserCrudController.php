@@ -38,8 +38,6 @@ class UserCrudController extends AbstractController
             $request->query->getInt('page', 1), 20
         );
 
-        // $users = $this->$userRepository->findAllVisibleQuery($search);
-
         return $this->render('/admin/user_crud/index.html.twig', [
             'users' => $properties,
             'form' => $form->createView(),
@@ -47,19 +45,23 @@ class UserCrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository): Response
+    public function new(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
+            $address = $form->get('facturation_address')->getData();
+            $address->setUser($user);
+            $this->entityManager->persist($address);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/user_crud/new.html.twig', [
+        return $this->render('admin/user_crud/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -74,28 +76,31 @@ class UserCrudController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
-
+            $address = $form->get('facturation_address')->getData();
+            $address->setUser($user);
+            $this->entityManager->persist($address);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/user_crud/edit.html.twig', [
+        return $this->render('admin/user_crud/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
+            $this->userRepository->remove($user, true);
         }
 
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
