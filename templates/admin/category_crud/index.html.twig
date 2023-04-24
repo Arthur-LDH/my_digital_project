@@ -11,17 +11,11 @@
         <div class="card-header py-3">
             <a href="{{ path('app_admin_category_new') }}">Créer une nouvelle catégorie</a>
         </div>
-        {# <div class="col-12 my-3">
+        <div class="col-12 my-3">
             {{ form_start(form) }}
                 <div class="form-group row gx-3 mb-3 justify-content-start">
                     <div class="col-md-3">
                         {{ form_row(form.name) }}
-                    </div>
-                    <div class="col-md-3">
-                        {{ form_row(form.roles) }}
-                    </div>
-                    <div class="col-md-3">
-                        {{ form_row(form.isVerified) }}
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <div>
@@ -30,7 +24,7 @@
                     </div>
                 </div>
             {{ form_end(form) }}
-        </div> #}
+        </div>
         <div class="card-body">
             <div class="navigate mt-1 d-flex justify-content-center">
                 {{ knp_pagination_render(categories) }}

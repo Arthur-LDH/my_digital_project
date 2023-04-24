@@ -55,7 +55,6 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices'  => [
-                    'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'row_attr' => [
@@ -90,7 +89,7 @@ class UserType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'required' => true,
+                'required' => false,
                 'first_options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
@@ -122,14 +121,6 @@ class UserType extends AbstractType
                 
 			])
 
-			->add('address', AddressType::class, [
-                'row_attr' => [
-                    'class' => 'd-none',
-                ],
-                'mapped' => false,
-                'data_class' => Address::class,
-            ])
-
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event)
@@ -140,13 +131,13 @@ class UserType extends AbstractType
                     $actual_link = "$_SERVER[REQUEST_URI]";
 
                     // disable field if it has been populated with a password already
-                    if ( $actual_link !== "/user/crud/new"){
+                    if ( $actual_link == "/user/crud/new"){
                         $form->add('plainPassword', RepeatedType::class, [
                             // instead of being set onto the object directly,
                             // this is read and encoded in the controller
                             'mapped' => false,
                             'type' => PasswordType::class,
-                            'required' => false,
+                            'required' => true,
                             'first_options' => [
                                 'attr' => [
                                     'autocomplete' => 'new-password',
@@ -175,6 +166,13 @@ class UserType extends AbstractType
                                     'class' => 'form-floating col-6 ps-2'
                                 ],
                             ]
+                        ])
+                        ->add('address', AddressType::class, [
+                            'row_attr' => [
+                                'class' => 'd-none',
+                            ],
+                            'mapped' => false,
+                            'data_class' => Address::class,
                         ]);
                     }
                 }

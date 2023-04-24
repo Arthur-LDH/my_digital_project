@@ -38,10 +38,8 @@ class CategoryCrudController extends AbstractController
             $request->query->getInt('page', 1), 20
         );
 
-        // $users = $this->$categoryRepository->findAllVisibleQuery($search);
-
         return $this->render('/admin/category_crud/index.html.twig', [
-            'users' => $properties,
+            'categories' => $properties,
             'form' => $form->createView(),
         ]);
     }

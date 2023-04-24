@@ -92,12 +92,15 @@ class UserCrudController extends AbstractController
             $address = $form->get('address')->getData();
             $address->setIdUser($user);
             $this->entityManager->persist($address);
-            $user->setPassword(
+            if($form->get('plainPassword')->getData() != null){
+                $user->setPassword(
                 $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
+            
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
