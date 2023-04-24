@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/category/crud')]
-class UserCrudController extends AbstractController
+class CategoryCrudController extends AbstractController
 {
     private $categoryRepository;
     private $entityManager;
