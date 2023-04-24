@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Entity\UserFilter;
+use App\Entity\Filter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query as ORMQuery;
@@ -62,7 +62,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
     * @return Query
     */
-   public function findAllVisibleQuery(UserFilter $search): ORMQuery
+   public function findAllVisibleQuery(Filter $search): ORMQuery
    {
         $query = $this->findVisibleQuery();
         if($search->getName()){

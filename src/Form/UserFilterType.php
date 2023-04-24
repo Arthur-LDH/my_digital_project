@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\UserFilter;
+use App\Entity\Filter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -49,7 +49,7 @@ class UserFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UserFilter::class,
+            'data_class' => Filter::class,
             'method' => 'get',
             'csrf_protection' => false,
         ]);

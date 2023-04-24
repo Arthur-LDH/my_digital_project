@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.login) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.address) }}
+    <div {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'user' }) }}>
+            <input type="text" placeholder="Adresse"
+            id="searchBarAutocomplete"
+            aria-label="Adresse" aria-describedby="btn-search-address"> 
+            <label for="searchBarAutocomplete">Adresse</label>
+    </div>
+    <button type="submit" class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

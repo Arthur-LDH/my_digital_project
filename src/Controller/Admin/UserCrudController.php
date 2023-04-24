@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Entity\UserFilter;
+use App\Entity\Filter;
 use App\Form\UserFilterType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -30,7 +30,7 @@ class UserCrudController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         //Filter form for the index
-        $search = new UserFilter();
+        $search = new Filter();
         $form = $this->createForm(UserFilterType::class, $search);
         $form->handleRequest($request);
 

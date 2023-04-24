@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class UserFilter{
+class Filter{
 
     /**
     * @var string|null
