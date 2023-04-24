@@ -36,8 +36,10 @@ class Address
 
     public function __toString()
     {
-        $houseNumber = $this->getHouseNumber() ? $this->getHouseNumber()." " : "";
-        return  $houseNumber.$this->getStreet().", ".$this->getPostalCode()." ".$this->getCity();
+        if ($this->getHouseNumber() === null) {
+            return $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity();
+        }
+        return $this->getHouseNumber() . ' ' . $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity();
     }
 
     public function getId(): ?int
