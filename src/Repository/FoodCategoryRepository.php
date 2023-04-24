@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Filter;
 use App\Entity\FoodCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query as ORMQuery;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<FoodCategory>
@@ -39,28 +42,22 @@ class FoodCategoryRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return FoodCategory[] Returns an array of FoodCategory objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Query
+    */
+   public function findAllVisibleQuery(Filter $search): ORMQuery
+   {
+        $query = $this->findVisibleQuery();
+        if($search->getName()){
+            $query = $query ->andWhere("c.name LIKE :name")
+                            ->setParameter('name', '%'.$search->getName().'%');
 
-//    public function findOneBySomeField($value): ?FoodCategory
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        }
+        return $query->getQuery();
+   }
+
+    public function findVisibleQuery(): ORMQueryBuilder
+    {
+        return $this->createQueryBuilder('c');
+    }
 }

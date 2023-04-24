@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Entity\UserFilter;
+use App\Entity\Filter;
 use App\Form\UserFilterType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -30,7 +30,7 @@ class UserCrudController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         //Filter form for the index
-        $search = new UserFilter();
+        $search = new Filter();
         $form = $this->createForm(UserFilterType::class, $search);
         $form->handleRequest($request);
 
@@ -92,12 +92,15 @@ class UserCrudController extends AbstractController
             $address = $form->get('address')->getData();
             $address->setIdUser($user);
             $this->entityManager->persist($address);
-            $user->setPassword(
+            if($form->get('plainPassword')->getData() != null){
+                $user->setPassword(
                 $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
+            
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
