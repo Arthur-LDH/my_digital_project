@@ -89,9 +89,6 @@ class UserCrudController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $address = $form->get('address')->getData();
-            $address->setIdUser($user);
-            $this->entityManager->persist($address);
             if($form->get('plainPassword')->getData() != null){
                 $user->setPassword(
                 $userPasswordHasher->hashPassword(
