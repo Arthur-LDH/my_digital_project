@@ -58,31 +58,31 @@ class UserType extends AbstractType
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'row_attr' => [
-					'class' => 'form-floating'
-				],
+                    'class' => 'form-floating'
+                ],
             ])
 
             ->add('login', TextType::class, [
-				'label' => 'Prénom',
-				'attr' => [
-					'placeholder' => 'Pseudo',
-				],
-				'row_attr' => [
-					'class' => 'form-floating'
-				],
-				'required' => true,
-			])
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Pseudo',
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating'
+                ],
+                'required' => true,
+            ])
 
             ->add('email', EmailType::class, [
-				'label' => 'Adresse email',
-				'attr' => [
-					'placeholder' => 'Adresse email',
-				],
-				'row_attr' => [
-					'class' => 'form-floating'
-				],
-				'required' => true,
-			])
+                'label' => 'Adresse email',
+                'attr' => [
+                    'placeholder' => 'Adresse email',
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating'
+                ],
+                'required' => true,
+            ])
 
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
@@ -94,7 +94,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'autocomplete' => 'new-password',
                         'placeholder' => 'Mot de passe',
-                        ],
+                    ],
                     'constraints' => [
                         new Length([
                             'min' => 6,
@@ -112,26 +112,25 @@ class UserType extends AbstractType
                     'attr' => [
                         'autocomplete' => 'new-password',
                         'placeholder' => 'Mot de passe',
-                        ],
+                    ],
                     'label' => 'Confirmer le mot de passe',
                     'row_attr' => [
                         'class' => 'form-floating col-6 ps-2'
                     ],
                 ]
-                
-			])
+
+            ])
 
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event)
-                {
+                function (FormEvent $event) {
                     // get the form
                     $form = $event->getForm();
 
                     $actual_link = "$_SERVER[REQUEST_URI]";
 
                     // disable field if it has been populated with a password already
-                    if ( $actual_link == "/user/crud/new"){
+                    if ($actual_link == "/user/crud/new") {
                         $form->add('plainPassword', RepeatedType::class, [
                             // instead of being set onto the object directly,
                             // this is read and encoded in the controller
@@ -142,7 +141,7 @@ class UserType extends AbstractType
                                 'attr' => [
                                     'autocomplete' => 'new-password',
                                     'placeholder' => 'Mot de passe',
-                                    ],
+                                ],
                                 'constraints' => [
                                     new Length([
                                         'min' => 6,
@@ -153,27 +152,27 @@ class UserType extends AbstractType
                                 ],
                                 'label' => 'Mot de passe',
                                 'row_attr' => [
-                                    'class' => 'form-floating col-6 pe-2'
+                                    'class' => 'form-floating'
                                 ],
                             ],
                             'second_options' => [
                                 'attr' => [
                                     'autocomplete' => 'new-password',
                                     'placeholder' => 'Mot de passe',
-                                    ],
+                                ],
                                 'label' => 'Confirmer le mot de passe',
                                 'row_attr' => [
-                                    'class' => 'form-floating col-6 ps-2'
+                                    'class' => 'form-floating'
                                 ],
                             ]
                         ])
-                        ->add('address', AddressType::class, [
-                            'row_attr' => [
-                                'class' => 'd-none',
-                            ],
-                            'mapped' => false,
-                            'data_class' => Address::class,
-                        ]);
+                            ->add('address', AddressType::class, [
+                                'row_attr' => [
+                                    'class' => 'd-none',
+                                ],
+                                'mapped' => false,
+                                'data_class' => Address::class,
+                            ]);
                     }
                 }
             );

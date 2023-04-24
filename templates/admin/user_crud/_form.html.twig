@@ -1,16 +1,18 @@
 {{ form_start(form) }}
-    {{ form_row(form.roles) }}
-    {{ form_row(form.login) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword) }}
-    {% if app.request.get('_route') == 'app_admin_user_new' %}
-    {{ form_row(form.address) }}
-    <div {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'user' }) }}>
-            <input type="text" placeholder="Adresse"
-            id="searchBarAutocomplete"
-            aria-label="Adresse" aria-describedby="btn-search-address"> 
-            <label for="searchBarAutocomplete">Adresse</label>
+    <div class="custom-form">
+        {{ form_row(form.roles) }}
+        {{ form_row(form.login) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
+        {% if app.request.get('_route') == 'app_admin_user_new' %}
+        {{ form_row(form.address) }}
+        <div class="form-floating" {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'user' }) }}>
+                <input class="form-control" type="text" placeholder="Adresse"
+                id="searchBarAutocomplete"
+                aria-label="Adresse" aria-describedby="btn-search-address">
+                <label for="searchBarAutocomplete">Adresse</label>
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-info mt-2">{{ button_label|default('Save') }}</button>
     </div>
-    {% endif %}
-    <button type="submit" class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
