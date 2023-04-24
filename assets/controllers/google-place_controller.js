@@ -62,9 +62,7 @@ export default class extends Controller {
         };
         const autocomplete = new google.maps.places.Autocomplete(input, options);
 
-        let btn_search = document.getElementById("btn-search-address");
-
-        btn_search.onclick = function () {
+        function fillFields(){
             let address = input.value;
             let geocoder = new google.maps.Geocoder();
             geocoder.geocode({'address': address}, function (results, status) {
@@ -75,14 +73,19 @@ export default class extends Controller {
                 }
             });
         }
+        
         //Action when enter key is pressed
         input.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault();
-                document.getElementById("btn-search-address").click();
+                fillFields();
             }
-
         });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            fillFields();
+        })
+
         // Select first result when enter is pressed
         const selectFirstOnEnter = function (input) {  // store the original event binding function
             const _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
@@ -175,11 +178,11 @@ export default class extends Controller {
                 neighborhood: neighborhood
             }
             if (pageValue == "form" && formValue != null) {
-                document.getElementById(formValue + "_form_address_coordinates").value = addressArray.latitude + " " + addressArray.longitude;
-                document.getElementById(formValue + "_form_address_postal_code").value = addressArray.cp;
-                document.getElementById(formValue + "_form_address_city").value = addressArray.city;
-                document.getElementById(formValue + "_form_address_street").value = addressArray.street;
-                document.getElementById(formValue + "_form_address_house_number").value = addressArray.houseNumber;
+                document.getElementById(formValue + "_address_coordinates").value = addressArray.latitude + " " + addressArray.longitude;
+                document.getElementById(formValue + "_address_postal_code").value = addressArray.cp;
+                document.getElementById(formValue + "_address_city").value = addressArray.city;
+                document.getElementById(formValue + "_address_street").value = addressArray.street;
+                document.getElementById(formValue + "_address_house_number").value = addressArray.houseNumber;
 
             }
         }

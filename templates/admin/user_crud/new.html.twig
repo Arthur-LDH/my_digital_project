@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Create new User</h1>
 
-    {{ include('admin/user_crud/_form.html.twig') }}
+    {{ include('admin/user_crud/_form.html.twig', { 'button_label' : 'Créer un utilisateur'}) }}
 
     <a href="{{ path('app_admin_user_index') }}">back to list</a>
 {% endblock %}

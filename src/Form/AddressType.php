@@ -20,7 +20,6 @@ class AddressType extends AbstractType
             ->add('postal_code')
             ->add('city')
             ->add('coordinates')
-//            ->add('user')
         ;
 		$builder->get("coordinates")->addModelTransformer(new CallbackTransformer(
 		// Transform the Point to a string
