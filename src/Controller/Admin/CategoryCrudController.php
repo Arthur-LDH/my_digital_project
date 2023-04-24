@@ -3,9 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\FoodCategory;
-use App\Entity\UserFilter;
-use App\Form\UserFilterType;
-use App\Form\CategoryType;
+use App\Entity\Filter;
+use App\Form\FoodCategoryFilterType;
+use App\Form\FoodCategoryType;
 use App\Repository\FoodCategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,8 +29,8 @@ class CategoryCrudController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         //Filter form for the index
-        $search = new UserFilter();
-        $form = $this->createForm(UserFilterType::class, $search);
+        $search = new Filter();
+        $form = $this->createForm(FoodCategoryFilterType::class, $search);
         $form->handleRequest($request);
 
         $properties = $paginator->paginate(
@@ -38,10 +38,8 @@ class CategoryCrudController extends AbstractController
             $request->query->getInt('page', 1), 20
         );
 
-        // $users = $this->$categoryRepository->findAllVisibleQuery($search);
-
         return $this->render('/admin/category_crud/index.html.twig', [
-            'users' => $properties,
+            'categories' => $properties,
             'form' => $form->createView(),
         ]);
     }
@@ -50,7 +48,7 @@ class CategoryCrudController extends AbstractController
     public function new(Request $request): Response
     {
         $category = new FoodCategory();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(FoodCategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,18 +63,10 @@ class CategoryCrudController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_category_show', methods: ['GET'])]
-    public function show(FoodCategory $category): Response
-    {
-        return $this->render('admin/category_crud/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_admin_category_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FoodCategory $category): Response
     {
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(FoodCategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
