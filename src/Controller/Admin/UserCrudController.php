@@ -35,7 +35,7 @@ class UserCrudController extends AbstractController
 
         $properties = $paginator->paginate(
             $this->userRepository->findAllVisibleQuery($search),
-            $request->query->getInt('page', 1), 1
+            $request->query->getInt('page', 1), 20
         );
 
         // $users = $this->$userRepository->findAllVisibleQuery($search);
