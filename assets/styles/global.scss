@@ -1,3 +1,22 @@
+// Variables
+// Fonctions
+// Mixins
+// Placeholders
+// Vendors
+// Base
+// Components
+// Layouts
+// Pages
+// Themes
+
+// 1.Base
+// 2.Utils
+// 3.Layout (mise en page)
+// 4.Composants
+// 5.Pages
+// 6.Themes
+// 7.Vendors (tiers).
+
 @import "~bootstrap/scss/bootstrap";
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
@@ -5,5 +24,7 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
+@import './utils/variables.scss';
 @import './sb-admin/sb-admin.scss';
+@import './sb-admin/dashboard.scss';
 @import './login/login.scss';
