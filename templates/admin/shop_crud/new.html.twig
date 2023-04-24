@@ -1,0 +1,11 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Créer un restaurant{% endblock %}
+
+{% block body %}
+    <h1>Créer un restaurant</h1>
+
+    {{ include('admin/shop_crud/_form.html.twig', { 'button_label' : 'Créer un restaurant'}) }}
+
+    <a href="{{ path('app_admin_shop_index') }}">Retour</a>
+{% endblock %}

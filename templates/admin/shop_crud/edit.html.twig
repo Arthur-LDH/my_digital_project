@@ -1,0 +1,13 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Edit {{ shop.name }}{% endblock %}
+
+{% block body %}
+    <h1>Edit {{ shop.name }}</h1>
+
+    {{ include('admin/shop_crud/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_admin_shop_index') }}">Retour</a>
+
+    {{ include('admin/shop_crud/_delete_form.html.twig') }}
+{% endblock %}
