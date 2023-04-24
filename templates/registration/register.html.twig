@@ -13,7 +13,7 @@
         <div class="form-group row gx-3 mb-3">
             <div class="col-md-6">
             {{ form_row(registrationForm.login)}}
-            </div> 
+            </div>
             <div class="col-md-6">
             {{ form_row(registrationForm.email)}}
             </div>
@@ -42,7 +42,7 @@
                     <div
                         {{ stimulus_controller('google-place', {
                             'page': "form",
-                            'form': 'registration',
+                            'form': 'registration_form',
                         }) }}
                     >
                     </div>
