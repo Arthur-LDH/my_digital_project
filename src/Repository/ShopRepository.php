@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Filter;
 use App\Entity\Shop;
+use Doctrine\ORM\Query as ORMQuery;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +42,29 @@ class ShopRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Shop[] Returns an array of Shop objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Query
+    */
+   public function findAllVisibleQuery(Filter $search): ORMQuery
+   {
+        $query = $this->findVisibleQuery();
+        if($search->getName()){
+            $query = $query ->andWhere("s.name LIKE :name")
+                            ->setParameter('name', '%'.$search->getName().'%');
+        }
+        // if($search->getRoles()){
+        //     $query = $query ->andWhere('s.roles LIKE :roles')
+        //                     ->setParameter('roles', '%'.$search->getRoles().'%');
+        // }
+        // if($search->getIsVerified()){
+        //     $query = $query ->andWhere('s.isVerified = :isverified')
+        //                     ->setParameter('isverified', $search->getIsVerified());
+        // }
+        return $query->getQuery();
+   }
 
-//    public function findOneBySomeField($value): ?Shop
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findVisibleQuery(): ORMQueryBuilder
+    {
+        return $this->createQueryBuilder('s');
+    }
 }

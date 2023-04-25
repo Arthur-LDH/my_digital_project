@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.website) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.delivery) }}
+    {{ form_row(form.take_away) }}
+    {{ form_row(form.avg_price) }}
+    {{ form_row(form.address) }}
+    <div {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'shop' }) }}>
+            <input type="text" placeholder="Adresse"
+            id="searchBarAutocomplete"
+            aria-label="Adresse" aria-describedby="btn-search-address"
+            {% if shop is defined %}
+            value={{ shop.address }}
+            {% endif %}
+            > 
+            <label for="searchBarAutocomplete">Adresse</label>
+    </div>
+    {{ form_row(form.category) }}
+    <button type="submit" class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

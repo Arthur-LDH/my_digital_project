@@ -34,6 +34,14 @@ class Address
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?Shop $shop = null;
 
+    public function __toString()
+    {
+        if ($this->getHouseNumber() === null) {
+            return $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity();
+        }
+        return $this->getHouseNumber() . ' ' . $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
