@@ -1,4 +1,16 @@
 $bgBlue: #337ab7;
-$bgHoki: #67809F;
+$bgHoki: #67809f;
 $bgRed: #e7505a;
-$bgPurple: #8E44AD;
+$bgPurple: #8e44ad;
+$white: #ffff;
+$black: #0000;
+
+// Import Agne font
+@font-face {
+  font-family: "Agne";
+  src: url("../../fonts/Agne.otf") format("opentype"),
+    url("../../fonts/Agne.ttf") format("truetype"),
+    url("../../fonts/Agne.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
