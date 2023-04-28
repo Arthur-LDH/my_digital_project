@@ -16,7 +16,7 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6tHSrMfIWaUeuNP6pcS6PrK1XzMEEXyk&libraries=places&callback=Function.prototype">
         </script>
     </head>
-    <body>
+    <body {{ stimulus_controller('tw-js') }}>
         {% block body %}{% endblock %}
     </body>
 </html>
