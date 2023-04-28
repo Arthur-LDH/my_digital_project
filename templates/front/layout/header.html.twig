@@ -13,6 +13,15 @@
   </div>
 </div>
 <div id="sidebar">
-  <p>Sidebar content goes here</p>
+  <nav>
+    <ul>
+      <li><a href="{{ path('app_home')}}">Accueil</a></li>
+      <li><a href="{{ path('app_login')}}">Connexion</a></li>
+      <li><a href="{{ path('app_register')}}">Inscription</a></li>
+      {% if app.user %}
+        <li><a href="{{ path('admin')}}">Admin</a></li>
+      {% endif %}
+    </ul>
+  </nav>
 </div>
 
