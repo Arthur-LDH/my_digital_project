@@ -3,5 +3,14 @@
 {% block body %}
     {% include "front/layout/header.html.twig" %}
     <section id="home" >
+        <div class="main-section">
+            <img src="{{ asset('build/images/home/test.jpg') }}" alt="">
+            <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
+                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#337ab7;"></path>
+            </svg>
+            <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
+                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#ffff;"></path>
+            </svg>
+        </div>
     </section>
 {% endblock %}
