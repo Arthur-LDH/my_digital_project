@@ -1,0 +1,32 @@
+{% extends 'account/index.html.twig' %}
+
+{% block title %}- Adresse{% endblock %}
+
+{% block content %}
+
+    <div class="text-center">
+    {% if app.user.addresses|length == 0 %}
+        <p class="font-bold mb-6">Vous n'avez pas encore ajouté d'adresses.</p>
+            
+    {% else %}
+        <div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+        {% for address in app.user.addresses %}
+            <div class="p-6 rounded-lg shadow theme-secondary mb-4 flex justify-between flex-col">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-color-primary">{{ address.name }}{% if address.company is not null %}, <span class="text-lg font-regular text-color-tertiary">{{ address.company }}</span>{% endif %}</h5>
+                <p class="font-normal text-color-secondary">{{ address.address }}, {{ address.postalCode }} {{ address.city }}, {{ address.country }}</p>
+                <div class="flex justify-around mt-4">
+                    <a class="text-blue-600 hover:text-blue-500" href="{{ path('app_account_edit_address', {'id' : address.id} )}}">Modifier</a>
+                    <a class="text-red-600 hover:text-red-500" href="{{ path('app_account_remove_address', {'id' : address.id} )}}">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+        <a href="{{ path('app_account_add_address') }}" class="h-10 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-full text-sm px-6 py-2.5 text-center inline-block"
+        data-te-ripple-init
+        data-te-ripple-color="light">
+        Ajouter une adresse
+        </a>
+    </div>
+
+{% endblock %}

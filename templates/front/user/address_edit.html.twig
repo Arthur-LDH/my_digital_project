@@ -1,0 +1,47 @@
+{% extends 'account/index.html.twig' %}
+
+{% block title %}- Modifier mon adresse{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+        <div class="block max-w-md rounded-lg p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] theme-secondary text-color-primary">
+
+            <div class="flex flex-row flex-wrap text-center">
+                
+                <h2 class="w-full mb-8 text-lg font-bold">Ajouter une adresse</h2>
+
+                <!-- Name address input-->
+                {{ include('/components/form/form_field.html.twig', { 'size' : 'full','form_widget' : form_widget(form.name), 'field_id' : 'address_name', 'label' : 'Nom de l\'adresse (Ex: Maison, Boulot, ...) *' , 'form_errors' : form_errors(form.name) }) }}
+
+                <!-- Company name input-->
+                {{ include('/components/form/form_field.html.twig', { 'size' : 'full','form_widget' : form_widget(form.company), 'field_id' : 'address_company', 'label' : '(Facultatif) Nom de votre société' , 'form_errors' : form_errors(form.company) }) }}
+
+                <div class="md:w-full w-full md:px-2 mb-6">
+                    <div class="relative" data-te-input-wrapper-init  {{ stimulus_controller('google-place', {
+                    'page': "form",
+                    'form': 'address',
+                    }) }}>
+                        <input type="text" class="peer block min-h-12 w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 form-control" placeholder="Adresse"
+                        id="searchBarAutocomplete"
+                        aria-label="Adresse" aria-describedby="btn-search-address"
+                        value="{{address}}">
+                        <label for="searchBarAutocomplete" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6]transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary-600 peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">Adresse</label>
+                    </div>
+                </div>
+                
+
+                <!--Submit button-->
+                <div class="w-full text-center">
+                    <button type="submit" class="h-10 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-full text-sm px-6 py-2.5 text-center inline-block"
+                    data-te-ripple-init 
+                    data-te-ripple-color="light">
+                        Modifier mon adresse
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    {{ form_end(form) }}
+
+
+{% endblock %}

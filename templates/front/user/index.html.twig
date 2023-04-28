@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}- Profil{% endblock %}
+
+{% block body %}
+    <div class="mt-12 mb-4 flex flex-wrap justify-center text-color-tertiary">
+        <div class="m-w-full overflow-hidden">
+            <div class="w-full flex flex-wrap mb-6 justify-center md:justify-start">
+                <img class="rounded-full w-32 h-32" src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" alt="user_avatar">
+                <div class="ml-6 flex flex-col justify-center">
+                    <p class="text-xl text-color-primary font-bold" >{{ app.user.login }}</p>
+                    <p>{{ app.user.email }}</p>
+                </div>
+            </div>
+                
+            <nav class="w-full overflow-scroll whitespace-nowrap scrollbar-hide text-color-secondary flex gap-2">
+                <a href="{{ path('app_account') }}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Accueil</a>
+                <a href="{{ path('app_account_address') }}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Mes adresses</a>
+                <a href="{{ path('app_account_password' )}}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Modifier mot de passe</a>
+            </nav>
+        </div>
+    </div>
+    <hr class="h-px border-0 theme-tertiary">
+    <div class="mt-6 md:mt-12 mb-4 p-4 flex flex-wrap justify-center md:px-32 lg:px-48 text-color-primary">
+        {% block content %}
+        {% endblock %}
+    </div>
+{% endblock %}
