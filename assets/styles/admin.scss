@@ -17,7 +17,7 @@
 // 6.Themes
 // 7.Vendors (tiers).
 
-// @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
@@ -29,8 +29,5 @@
 @import "tailwindcss/utilities";
 
 @import './utils/variables.scss';
-// @import './layouts/header.scss';
-// @import './sb-admin/sb-admin.scss';
-// @import './sb-admin/dashboard.scss';
-// @import './login/login.scss';
-@import './themes/theme.scss';
+@import './sb-admin/sb-admin.scss';
+@import './sb-admin/dashboard.scss';

@@ -1,0 +1,131 @@
+@layer components {
+    // COLORS
+    // FOR LIGHT MODE
+    .bg-light-primary{
+        @apply bg-neutral-100;
+    }
+
+    .text-light-primary{
+        @apply text-neutral-800;
+    }
+
+    .bg-light-secondary{
+        @apply bg-white;
+    }
+
+    .text-light-secondary{
+        @apply text-gray-700;
+    }
+
+    .bg-light-tertiary{
+        @apply bg-neutral-200;
+    }
+
+    .text-light-tertiary{
+        @apply text-gray-600;
+    }
+
+    // FOR DARK MODE
+    .bg-dark-primary{
+        @apply bg-neutral-700;
+    }
+
+    .text-dark-primary{
+        @apply text-neutral-100;
+    }
+
+    .bg-dark-secondary{
+        @apply bg-neutral-800;
+    }
+
+    .text-dark-secondary{
+        @apply text-neutral-200;
+    }
+
+    .bg-dark-tertiary{
+        @apply bg-zinc-600;
+    }
+
+    .text-dark-tertiary{
+        @apply text-neutral-400;
+    }
+
+    // THEMES
+    .theme-primary{
+        @apply bg-light-primary dark:bg-dark-primary;
+    }
+
+    .theme-secondary{
+        @apply bg-light-secondary dark:bg-dark-secondary;
+    }
+
+    .theme-tertiary{
+        @apply bg-light-tertiary dark:bg-dark-tertiary;
+    }
+
+    // INVERSED THEMES
+    .theme-primary-inversed{
+        @apply dark:bg-light-primary bg-dark-primary;
+    }
+
+    .theme-secondary-inversed{
+        @apply dark:bg-light-secondary bg-dark-secondary;
+    }
+
+    .theme-tertiary-inversed{
+        @apply dark:bg-light-tertiary bg-dark-tertiary;
+    }
+
+    //HOVER
+    .hover-color-primary{
+        @apply hover:theme-secondary-inversed hover:text-color-secondary-inversed;
+        
+    }
+
+    .hover-color-secondary{
+        @apply hover:theme-tertiary-inversed hover:text-color-tertiary-inversed;
+    }
+
+    .hover-color-tertiary{
+        @apply hover:theme-primary-inversed hover:text-color-primary-inversed;
+    }
+
+    //INVERSED HOVER
+    .hover-color-primary-inversed{
+        @apply dark:hover:bg-light-primary hover:bg-dark-primary;
+    }
+
+    .hover-color-secondary-inversed{
+        @apply dark:hover:bg-light-secondary hover:bg-dark-primary;
+    }
+
+    .hover-color-tertiary-inversed{
+        @apply dark:hover:bg-light-tertiary hover:bg-dark-tertiary;
+    }
+
+    //FONT COLORS
+    .text-color-primary{
+        @apply text-light-primary dark:text-dark-primary;
+    }
+
+    .text-color-secondary{
+        @apply  text-light-secondary dark:text-dark-secondary;
+    }
+
+    .text-color-tertiary{
+        @apply text-light-tertiary dark:text-dark-tertiary;
+    }
+
+    //INVERSED FONT COLORS
+    .text-color-primary-inversed{
+        @apply dark:text-light-primary text-dark-primary;
+    }
+
+    .text-color-secondary-inversed{
+        @apply  dark:text-light-secondary text-dark-secondary;
+    }
+
+    .text-color-tertiary-inversed{
+        @apply dark:text-light-tertiary text-dark-tertiary;
+    }
+}   

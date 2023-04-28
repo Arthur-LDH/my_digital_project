@@ -6,7 +6,20 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import 'flowbite';
+import "flowbite/dist/flowbite.turbo.js";
 import './styles/global.scss';
-
 // start the Stimulus application
 import './bootstrap';
+
+import {
+    Carousel,
+    Collapse,
+    Dropdown,
+    Ripple,
+    Sidenav,
+    Input,
+    initTE,
+} from "tw-elements";
+
+initTE({ Carousel, Collapse, Dropdown, Ripple, Sidenav, Input });
