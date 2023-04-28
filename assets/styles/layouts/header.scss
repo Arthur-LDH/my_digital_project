@@ -4,104 +4,83 @@
   display: none;
 }
 
-.grid {
+#header-menu {
   display: flex;
   width: 100vw;
   height: 80px;
   background-color: black;
   position: absolute;
-}
-
-.grid > * {
-  position: relative;
-}
-
-label {
-  display: block;
-  cursor: pointer;
-  position: absolute;
-  width: 50vw;
-  height: 50vw;
-  max-width: 80px;
-  max-height: 80px;
-}
-
-@media (min-aspect-ratio: 1/1) {
+  > * {
+    position: relative;
+  }
   label {
-    width: 50vh;
-    height: 50vh;
-  }
-}
-
-.menu--2 label {
-  margin: auto;
-}
-
-path {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  --length: 24;
-  --offset: -38;
-  stroke-dasharray: var(--length) var(--total-length);
-  stroke-dashoffset: var(--offset);
-  transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-circle {
-  fill: #fff3;
-  opacity: 0;
-}
-
-label:hover circle {
-  opacity: 1;
-}
-
-.cross input:checked + svg {
-  .line--1,
-  .line--3 {
-    --length: 22.627416998;
-  }
-
-  .line--2 {
-    --length: 0;
-  }
-}
-
-.back input:checked + svg {
-  .line--1,
-  .line--3 {
-    --length: 8.602325267;
-  }
-}
-
-.menu--2 {
-  background-color: #0095f9;
-
-  .line--1,
-  .line--3 {
-    --total-length: 111.22813415527344;
-    --offset: -50.22813415527344;
-  }
-
-  .line--2 {
-    --total-length: 99;
-  }
-
-  input:checked + svg {
-    path {
-      transform: translateX(30px);
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    max-width: 80px;
+    max-height: 80px;
+    margin: auto;
+    circle {
+      fill: #fff3;
+      opacity: 0;
     }
-
+    &:hover circle {
+      opacity: 1;
+    }
+  }
+  .cross input:checked + svg {
     .line--1,
     .line--3 {
-      --offset: -16.9705627485;
+      --length: 22.627416998;
     }
 
     .line--2 {
-      --offset: -20;
+      --length: 0;
+    }
+  }
+  .menu--2 {
+    .line--1,
+    .line--3 {
+      --total-length: 111.22813415527344;
+      --offset: -50.22813415527344;
+    }
+    .line--2 {
+      --total-length: 99;
+    }
+    input:checked + svg {
+      path {
+        transform: translateX(30px);
+      }
+      .line--1,
+      .line--3 {
+        --offset: -16.9705627485;
+      }
+      .line--2 {
+        --offset: -20;
+      }
+    }
+  }
+  path {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    --length: 24;
+    --offset: -38;
+    stroke-dasharray: var(--length) var(--total-length);
+    stroke-dashoffset: var(--offset);
+    transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  #header-menu {
+    label {
+      width: 50vh;
+      height: 50vh;
     }
   }
 }
