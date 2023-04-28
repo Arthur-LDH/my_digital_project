@@ -184,6 +184,12 @@ export default class extends Controller {
                 document.getElementById(formValue + "_address_street").value = addressArray.street;
                 document.getElementById(formValue + "_address_house_number").value = addressArray.houseNumber;
 
+            } else if(pageValue == "address"){
+                document.getElementById(formValue + "_coordinates").value = addressArray.latitude + " " + addressArray.longitude;
+                document.getElementById(formValue + "_postal_code").value = addressArray.cp;
+                document.getElementById(formValue + "_city").value = addressArray.city;
+                document.getElementById(formValue + "_street").value = addressArray.street;
+                document.getElementById(formValue + "_house_number").value = addressArray.houseNumber;
             }
         }
     }
