@@ -1,4 +1,4 @@
-{% extends 'account/index.html.twig' %}
+{% extends 'front/user/index.html.twig' %}
 
 {% block title %}- Modifier mon adresse{% endblock %}
 
@@ -12,9 +12,6 @@
 
                 <!-- Name address input-->
                 {{ include('/components/form/form_field.html.twig', { 'size' : 'full','form_widget' : form_widget(form.name), 'field_id' : 'address_name', 'label' : 'Nom de l\'adresse (Ex: Maison, Boulot, ...) *' , 'form_errors' : form_errors(form.name) }) }}
-
-                <!-- Company name input-->
-                {{ include('/components/form/form_field.html.twig', { 'size' : 'full','form_widget' : form_widget(form.company), 'field_id' : 'address_company', 'label' : '(Facultatif) Nom de votre société' , 'form_errors' : form_errors(form.company) }) }}
 
                 <div class="md:w-full w-full md:px-2 mb-6">
                     <div class="relative" data-te-input-wrapper-init  {{ stimulus_controller('google-place', {

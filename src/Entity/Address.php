@@ -34,6 +34,9 @@ class Address
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?Shop $shop = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
     public function __toString()
     {
         if ($this->getHouseNumber() === null) {
@@ -132,6 +135,18 @@ class Address
         }
 
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

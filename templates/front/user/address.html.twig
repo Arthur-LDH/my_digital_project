@@ -1,4 +1,4 @@
-{% extends 'account/index.html.twig' %}
+{% extends 'front/user/index.html.twig' %}
 
 {% block title %}- Adresse{% endblock %}
 
@@ -12,8 +12,8 @@
         <div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
         {% for address in app.user.addresses %}
             <div class="p-6 rounded-lg shadow theme-secondary mb-4 flex justify-between flex-col">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-color-primary">{{ address.name }}{% if address.company is not null %}, <span class="text-lg font-regular text-color-tertiary">{{ address.company }}</span>{% endif %}</h5>
-                <p class="font-normal text-color-secondary">{{ address.address }}, {{ address.postalCode }} {{ address.city }}, {{ address.country }}</p>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-color-primary">{{ address.name }}</h5>
+                <p class="font-normal text-color-secondary">{{ address.houseNumber }} {{ address.street }}, {{ address.postalCode }} {{ address.city }}</p>
                 <div class="flex justify-around mt-4">
                     <a class="text-blue-600 hover:text-blue-500" href="{{ path('app_account_edit_address', {'id' : address.id} )}}">Modifier</a>
                     <a class="text-red-600 hover:text-red-500" href="{{ path('app_account_remove_address', {'id' : address.id} )}}">Supprimer</a>

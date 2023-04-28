@@ -73,7 +73,7 @@ class UserProfileController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $address->setUser($this->getUser());
+            $address->setIdUser($this->getUser());
             $this->addressRepository->save($address, true);
 
             return $this->redirectToRoute('app_account_address');
@@ -89,7 +89,7 @@ class UserProfileController extends AbstractController
     {
         $address = $this->addressRepository->findOneBy(['id' => $id]);
         
-        if(!$address || $address->getUser() != $this->getUser()){
+        if(!$address || $address->getIdUser() != $this->getUser()){
             return $this->redirectToRoute('app_account_address');
         }
         $form = $this->createForm(AddressType::class, $address);
@@ -97,7 +97,7 @@ class UserProfileController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $address->setUser($this->getUser());
+            $address->setIdUser($this->getUser());
             $this->addressRepository->save($address, true);
 
             return $this->redirectToRoute('app_account_address');
@@ -114,7 +114,7 @@ class UserProfileController extends AbstractController
     {
         $address = $this->addressRepository->findOneBy(['id' => $id]);
         
-        if(!$address || $address->getUser() != $this->getUser()){
+        if(!$address || $address->getIdUser() != $this->getUser()){
             return $this->redirectToRoute('app_account_address');
         }
         $this->addressRepository->remove($address, true);
