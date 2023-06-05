@@ -6,7 +6,19 @@
     <div class="pt-32 mb-4 flex flex-wrap justify-center text-color-tertiary">
         <div class="m-w-full overflow-hidden">
             <div class="w-full flex flex-wrap mb-6 justify-center md:justify-start">
-                <img class="rounded-full w-32 h-32" src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" alt="user_avatar">
+                <a class="relative overflow-hidden" href="{{ path('app_account_avatar') }}">
+                    <img role="button" class="rounded-full w-32 h-32 object-cover" 
+                    {% if app.user.avatar %}
+                        src="/uploads/avatar/{{ app.user.avatar }}"
+                    {% else %}
+                        src="/build/images/default-avatar.png"
+                    {% endif %}
+                    alt="user_avatar">
+                    
+                    <div class="w-full h-full absolute bg-gray-200 top-0 left-0 rounded-full opacity-0 hover:opacity-70 flex justify-center items-center ease-in-out duration-75">
+                        <i class="bi bi-gear-fill text-4xl text-color-white"></i>
+                    </div>
+                </a>
                 <div class="ml-6 flex flex-col justify-center">
                     <p class="text-xl text-color-primary font-bold" >{{ app.user.login }}</p>
                     <p>{{ app.user.email }}</p>

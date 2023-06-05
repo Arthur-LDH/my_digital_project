@@ -4,9 +4,12 @@ namespace App\Controller\User;
 
 use App\Entity\Address;
 use App\Form\AddressType;
+use App\Form\AvatarType;
 use App\Form\ChangePasswordType;
+use App\Form\DeleteAvatarType;
 use App\Repository\AddressRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -120,5 +123,61 @@ class UserProfileController extends AbstractController
         $this->addressRepository->remove($address, true);
 
         return $this->redirectToRoute('app_account_address');
+    }
+
+    #[Route('/avatar', name: 'app_account_avatar')]
+    public function avatar(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        //Removes the errors on unexisting methods for the entity User(), can appears on some IDEs.
+        assert($user instanceof \App\Entity\User);
+
+        $avatarForm = $this->createForm(AvatarType::class, $user);
+        $avatarForm->handleRequest($request);
+
+        if($avatarForm->isSubmitted() && $avatarForm->isValid()){
+
+            $imageFile = $avatarForm->get('avatar')->getData();
+
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/avatar';
+
+            $imageFile->move($destination, $newFilename);
+
+            if($user->getAvatar()){
+                unlink($destination.'/'.$user->getAvatar());
+            }
+
+            $user->setAvatar($newFilename);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_account_avatar');
+        }
+
+        $deleteAvatarForm = $this->createForm(DeleteAvatarType::class, $user);
+        $deleteAvatarForm->handleRequest($request);
+
+        if($deleteAvatarForm->isSubmitted() && $deleteAvatarForm->isValid()){
+
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/avatar';
+
+            if($user->getAvatar()){
+                unlink($destination.'/'.$user->getAvatar());
+            }
+
+            $user->setAvatar(null);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_account_avatar');
+        }
+
+        return $this->render('front/user/avatar.html.twig', [
+            'avatarForm' => $avatarForm,
+            'deleteAvatarForm' => $deleteAvatarForm
+        ]);
+
     }
 }

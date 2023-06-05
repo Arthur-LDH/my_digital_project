@@ -1,0 +1,28 @@
+{% extends 'front/user/index.html.twig' %}
+
+{% block title %}- Avatar{% endblock %}
+
+{% block content %}
+
+    <div class="p-4">
+        {{ form_start(avatarForm) }}
+            <div class="w-full flex flez-wrap justify-center flex-wrap text-center">
+            <div class="w-full mb-3">
+                {{ form_widget(avatarForm.avatar) }}
+            </div>  
+            {{ form_label(avatarForm.avatar) }}
+            </div>
+            <div class="w-full flex justify-center mt-4">
+                <button class="btn-main" role="button" type="submit">Valider</button>
+            </div>
+        {{ form_end(avatarForm) }}
+        {{ form_start(deleteAvatarForm) }}
+            <div class="w-full flex justify-center mt-8">
+                {{ form_widget(deleteAvatarForm.submit) }}
+            </div>
+        {{ form_end(deleteAvatarForm) }}
+    </div>
+
+{% endblock %}
+
+    
