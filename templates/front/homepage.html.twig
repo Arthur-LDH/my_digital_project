@@ -46,9 +46,19 @@
             <!-- Modal content -->
             <div class="relative">
                 <div class="modalInput">
-                    <form action=""></form>
-                    <label for="find_place" class="invisible"></label>
-                    <input type="text" id="find_place" class="w-full p-2.5" placeholder="Rechercher un lieu" required><i class="fa-solid fa-magnifying-glass"></i>
+                    {{ form_start(searchForm)}}
+                        {# <label for="find_place" class="invisible"></label>
+                        <input type="text" id="find_place" class="w-full p-2.5" placeholder="Rechercher un lieu" required><i class="fa-solid fa-magnifying-glass"></i> #}
+                        <div class="mb-3" {{ stimulus_controller('google-place', {'page' : 'home', 'form': 'search_restaurant' }) }}>
+                            <label class="form-label" for="searchBarAutocomplete">Adresse</label>
+                            <input  type="text"
+                                    id="searchBarAutocomplete"
+                                    aria-label="Adresse" 
+                                    class="form-control">
+                        </div>
+                        {{ form_row(searchForm.coordinates) }}
+                        <button type="submit">Rechercher</button>
+                    {{ form_end(searchForm) }}
                 </div>
                 </div>
                 <!-- Modal footer -->

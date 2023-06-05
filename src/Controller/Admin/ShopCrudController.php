@@ -40,7 +40,7 @@ class ShopCrudController extends AbstractController
             $request->query->getInt('page', 1), 20
         );
 
-        return $this->render('//admin/shop_crud/index.html.twig', [
+        return $this->render('/admin/shop_crud/index.html.twig', [
             'shops' => $properties,
             'form' => $form->createView(),
         ]);
