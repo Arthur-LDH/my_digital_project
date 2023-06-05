@@ -81,9 +81,14 @@
                 color: $white;
                 text-transform: uppercase;
             }
-        }
 
-        .loginFooter {}
+            .loginFooter {
+                display: flex;
+                justify-content: center;
+                color: red;
+                font-weight: 800;
+            }
+        }
     }
 }
 
