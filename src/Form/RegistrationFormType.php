@@ -60,7 +60,7 @@ class RegistrationFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'Mot de passe',
+                    'label' => 'Mot de passe (6 caractères minimum)',
                     'row_attr' => [
                         'class' => 'form-floating col-6 pe-2'
                     ],

@@ -25,6 +25,11 @@
             </svg>
         </div>
         <div class="main-logo">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <img src="{{ asset('build/images/logos/logo-noir.svg') }}" alt="logo vite ma bouffe">
         </div>
     </section>
