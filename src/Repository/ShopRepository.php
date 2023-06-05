@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Filter;
+use App\Entity\Search;
 use App\Entity\Shop;
 use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Query as ORMQuery;
@@ -71,18 +72,18 @@ class ShopRepository extends ServiceEntityRepository
 
     /**
 	 * Get all shops in a radius around a position
-	 * @param Point $position
+	 * @param Search $search
 	 * @param int $radius
 	 * @return Shop[]
 	 */
-	public function findNearby(Point $position, int $radius = 1000): array {
-		$latitude = $position->getLatitude();
-		$longitude = $position->getLongitude();
-		$limit = 10;
-	
+	public function findRestaurants(Search $search , int $radius = 1000): array {
+        
+		$latitude = $search->getCoordinates()->getLatitude();
+		$longitude = $search->getCoordinates()->getLongitude();
+        $limit = 20;
+
 		$results =  $this->createQueryBuilder('s')
 			->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
-			// ->andWhere('s.visible = true')
 			// ->andWhere('s.active = true')
 			->join('s.address', 'a')
 			->orderBy('distance')

@@ -40,6 +40,8 @@ class Shop
     #[ORM\ManyToMany(targetEntity: FoodCategory::class, inversedBy: 'shops')]
     private Collection $category;
 
+    private ?string $distance;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -154,6 +156,30 @@ class Shop
     public function removeCategory(FoodCategory $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of distance
+     *
+     * @return ?string
+     */
+    public function getDistance(): ?string
+    {
+        return $this->distance;
+    }
+
+    /**
+     * Set the value of distance
+     *
+     * @param ?string $distance
+     *
+     * @return self
+     */
+    public function setDistance(?string $distance): self
+    {
+        $this->distance = $distance;
 
         return $this;
     }

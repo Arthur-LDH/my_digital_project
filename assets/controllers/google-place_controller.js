@@ -190,6 +190,9 @@ export default class extends Controller {
                 document.getElementById(formValue + "_city").value = addressArray.city;
                 document.getElementById(formValue + "_street").value = addressArray.street;
                 document.getElementById(formValue + "_house_number").value = addressArray.houseNumber;
+            } else if(pageValue == "home"){
+                console.log('hello')
+                document.getElementById(formValue + "_coordinates").value = addressArray.latitude + " " + addressArray.longitude;
             }
         }
     }
