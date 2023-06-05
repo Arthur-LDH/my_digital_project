@@ -13,11 +13,14 @@
 
     .main-img {
       height: 100%;
+      width: 100%;
+      object-fit: contain;
 
       img {
         object-fit: cover;
         width: 100%;
         min-height: 70vh;
+        max-height: 75vh;
       }
     }
 
@@ -28,6 +31,7 @@
       border-radius: 22px;
       padding: 2px;
       width: 199px;
+      z-index: 2;
 
       button {
         background: rgba(0, 0, 0, 0.4);
@@ -62,10 +66,12 @@
   }
 
   .main-logo {
+    position: relative;
     margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: $grey;
 
     img {
       width: 9rem;

@@ -1,0 +1,30 @@
+#staticModal {
+    #closeModal {}
+
+    background-color: $grey;
+    opacity: 0.9;
+    align-items: flex-start;
+    padding: 150px 50px;
+    transform: translateY(0%);
+    transition: transform 2s ease-in-out;
+    height: 100%;
+
+    .modalInput {
+        display: flex;
+        border-style: none;
+
+        input {
+            background: none;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: $black;
+            border: none;
+            border-bottom: 1px solid $black;
+
+            &:focus {}
+        }
+    }
+}
