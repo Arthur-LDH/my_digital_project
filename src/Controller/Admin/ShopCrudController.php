@@ -70,10 +70,12 @@ class ShopCrudController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_shop_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Shop $shop, Address $address, AddressRepository $addressRepository): Response
+    public function edit(Request $request, Shop $shop, AddressRepository $addressRepository): Response
     {
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
+
+        // dd($shop->getAddress());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $address = $shop->getAddress();

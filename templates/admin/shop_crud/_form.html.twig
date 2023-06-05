@@ -6,16 +6,17 @@
     {{ form_row(form.take_away) }}
     {{ form_row(form.avg_price) }}
     {{ form_row(form.address) }}
-    <div {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'shop' }) }}>
-            <input type="text" placeholder="Adresse"
+    <div class="mb-3" {{ stimulus_controller('google-place', {'page' : 'form', 'form': 'shop' }) }}>
+            <label class="form-label" for="searchBarAutocomplete">Adresse</label>
+            <input type="text"
             id="searchBarAutocomplete"
-            aria-label="Adresse" aria-describedby="btn-search-address"
+            aria-label="Adresse" aria-describedby="btn-search-address" class="form-control"
             {% if shop is defined %}
-            value={{ shop.address }}
+                value="{{ shop.address }}"
             {% endif %}
             > 
-            <label for="searchBarAutocomplete">Adresse</label>
+            
     </div>
     {{ form_row(form.category) }}
-    <button type="submit" class="btn">{{ button_label|default('Save') }}</button>
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

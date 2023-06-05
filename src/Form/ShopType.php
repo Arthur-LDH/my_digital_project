@@ -23,15 +23,15 @@ class ShopType extends AbstractType
             ->add('avg_price')
             ->add('address', AddressType::class, [
                 'row_attr' => [
-                    'class' => 'd-none',
+                    'class' => 'd-none hidden',
                 ],
-                'mapped' => false,
                 'data_class' => Address::class,
             ])
             ->add('category', EntityType::class, [
                 'class' => FoodCategory::class,
                 'autocomplete' => true,
-                'multiple' => true
+                'multiple' => true,
+                'by_reference' => false,
             ])
         ;
     }

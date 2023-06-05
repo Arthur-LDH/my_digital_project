@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
@@ -26,7 +27,7 @@ class Address
     private ?string $city = null;
 
     #[ORM\Column(type: 'point')]
-    private $coordinates = null;
+    private ?Point $coordinates;
 
     #[ORM\ManyToOne(inversedBy: 'addresses')]
     private ?User $id_user = null;
@@ -98,17 +99,19 @@ class Address
         return $this;
     }
 
-    public function getCoordinates()
-    {
-        return $this->coordinates;
-    }
-
-    public function setCoordinates($coordinates): self
-    {
-        $this->coordinates = $coordinates;
-
-        return $this;
-    }
+    /**
+	 * @return Point|null
+	 */
+	public function getCoordinates(): ?Point {
+		return $this->coordinates;
+	}
+	
+	/**
+	 * @param Point|null $coordinates
+	 */
+	public function setCoordinates(?Point $coordinates): void {
+		$this->coordinates = $coordinates;
+	}
 
     public function getIdUser(): ?User
     {

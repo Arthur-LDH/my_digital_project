@@ -21,31 +21,32 @@ class AddressType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => [
                 'class' => $tsClasses,
-                ]
+                ],
+                'required' => false
             ])
             ->add('house_number', TextType::class, [
                 'row_attr' => [
-                'class' => 'hidden',
+                'class' => '',
                 ]
             ])
             ->add('street', TextType::class, [
                 'row_attr' => [
-                'class' => 'hidden',
+                'class' => '',
                 ]
             ])
             ->add('postal_code', TextType::class, [
                 'row_attr' => [
-                'class' => 'hidden',
+                'class' => '',
                 ]
             ])
             ->add('city', TextType::class, [
                 'row_attr' => [
-                'class' => 'hidden',
+                'class' => '',
                 ]
             ])
             ->add('coordinates', TextType::class, [
                 'row_attr' => [
-                'class' => 'hidden',
+                'class' => '',
                 ]
             ])
         ;

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Filter;
 use App\Entity\Shop;
+use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Query as ORMQuery;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -67,4 +68,36 @@ class ShopRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s');
     }
+
+    /**
+	 * Get all shops in a radius around a position
+	 * @param Point $position
+	 * @param int $radius
+	 * @return Shop[]
+	 */
+	public function findNearby(Point $position, int $radius = 1000): array {
+		$latitude = $position->getLatitude();
+		$longitude = $position->getLongitude();
+		$limit = 10;
+	
+		$results =  $this->createQueryBuilder('s')
+			->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
+			// ->andWhere('s.visible = true')
+			// ->andWhere('s.active = true')
+			->join('s.address', 'a')
+			->orderBy('distance')
+			->setMaxResults($limit)
+			->setParameter('latitude', $latitude)
+			->setParameter('longitude', $longitude)
+			->getQuery()
+			->getResult()
+		;
+		$parsedResult = array();
+		foreach ($results as $result) {
+			$shop = $result[0];
+			$shop->setDistance($result['distance']);
+			$parsedResult[] = $shop;
+		}
+		return $parsedResult;
+	}
 }
