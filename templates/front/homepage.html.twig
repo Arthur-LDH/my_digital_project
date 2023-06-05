@@ -3,14 +3,24 @@
 {% block body %}
     <section id="home" >
         <div class="main-section">
-            <img src="{{ asset('build/images/home/test.jpg') }}" alt="">
+            <div class="main-img">
+                <img src="{{ asset('build/images/home/main.png') }}" alt="image accueil vite ma bouffe">
+            </div>
+            <div class="main-btn">
+                <button class="py-2 px-4 rounded inline-flex items-center">
+                    Rechercher un lieu
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
             <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
-                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#337ab7;"></path>
+                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#2A9D8F;"></path>
             </svg>
             <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
-                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#ffff;"></path>
+                <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#F5F5F5;"></path>
             </svg>
         </div>
-        <h1>Vite ma Bouffe</h1>
+        <div class="main-logo">
+            <img src="{{ asset('build/images/logos/logo-noir.svg') }}" alt="logo vite ma bouffe">
+        </div>
     </section>
 {% endblock %}

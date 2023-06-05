@@ -29,7 +29,9 @@
 @import "tailwindcss/utilities";
 
 @import "./utils/variables.scss";
+@import './assets/styles/base/base.scss';
 @import "./layouts/header.scss";
+@import "./layouts/footer.scss";
 // @import './sb-admin/sb-admin.scss';
 // @import './sb-admin/dashboard.scss';
 // @import './login/login.scss';
