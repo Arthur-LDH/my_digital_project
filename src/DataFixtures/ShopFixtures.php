@@ -30,8 +30,8 @@ class ShopFixtures extends Fixture
         $shop = array();
         $categories = $this->categoryRepository->findAll();
         for ($i = 0; $i < 10; $i++) {
-                $latitude = rand(470000000, 480000000) / 10000000;   // Génère une latitude entre 47.0000000 et 48.0000000
-                $longitude = rand(-3000000, -2000000) / 1000000;    // Génère une longitude
+                $latitude = rand(476000000, 478000000) / 10000000;   // Génère une latitude entre 47.0000000 et 48.0000000
+                $longitude = rand(-2600000, -2800000) / 1000000;    // Génère une longitude
                 $address[$i] = new Address;
                 $address[$i]->setHouseNumber(rand(1, 50))
                         ->setStreet($faker->streetName)

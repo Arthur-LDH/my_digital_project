@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use CrEOF\Spatial\PHP\Types\Geometry\Point;
+
 class Search
 {
 
     /**
-     * @var point|null
+     * @var Point|null
      */
     private $coordinates;
 
