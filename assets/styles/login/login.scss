@@ -1,23 +1,146 @@
-.gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #fccb90;
+#login {
+    display: block;
+    background-color: $white;
 
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, #798b47, #6b6836, #584e2e, #422F23);
+    .loginContainer {
+        .loginHeader {
+            height: 375px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $blueGreen;
 
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #798b47, #6b6836, #584e2e, #422F23);
-}
+            .loginIconContainer {
+                background-color: $white;
+                border-radius: 50%;
+                width: 130px;
+                height: 130px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-@media (min-width: 768px) {
-    .gradient-form {
-        height: 100vh !important;
+                i {
+                    color: $blueGreen;
+                    font-size: 3rem;
+                }
+            }
+        }
+
+        .loginForm {
+            padding: 40px;
+
+            form {
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                border-radius: 17px;
+                padding: 20px;
+                position: relative;
+                top: -95px;
+                background-color: $white;
+
+                h5 {
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19px;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+
+                label {
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    margin-top: 20px;
+                    color: $blueGreen;
+                }
+
+                input {
+                    background: $white;
+                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+                    border: none;
+                }
+            }
+
+            .btn {
+                background-color: $blueGreen;
+                border-radius: 17.5px;
+                width: 175px;
+                height: 35px;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 10px;
+                line-height: 12px;
+                text-align: center;
+                color: $white;
+                text-transform: uppercase;
+            }
+        }
+
+        .loginFooter {}
     }
 }
 
-@media (min-width: 769px) {
-    .gradient-custom-2 {
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
-    }
-}
+// #login {
+//     background-color: $white;
+
+//     .loginHeader {
+//         height: 300px;
+//         width: 100%;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         background-color: $blueGreen;
+
+//         .loginIconContainer {
+//             background-color: $white;
+//             border-radius: 50%;
+//             width: 130px;
+//             height: 130px;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+
+//             i {
+//                 color: $blueGreen;
+//                 font-size: 3rem;
+//             }
+//         }
+
+//         .loginContent {
+//             h5 {
+//                 font-family: 'Inter';
+//                 font-style: normal;
+//                 font-weight: 400;
+//                 font-size: 16px;
+//                 line-height: 19px;
+//                 text-align: center;
+//                 text-transform: uppercase;
+//             }
+
+//             label {
+//                 margin-top: 25px;
+//                 color: $blueGreen;
+//                 font-family: 'Inter';
+//                 font-style: normal;
+//                 font-weight: 400;
+//                 font-size: 12px;
+//                 line-height: 15px;
+//             }
+
+//             input {
+//                 background: $white;
+//                 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+//                 border: none;
+//             }
+
+//             padding: 20px;
+//             background-color: $white;
+//             border-radius: 10px;
+//         }
+//     }
+// }
