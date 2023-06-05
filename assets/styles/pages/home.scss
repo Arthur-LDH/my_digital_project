@@ -1,32 +1,81 @@
 #home {
   position: relative;
-  top: 80px;
+  height: 100%;
+
   .main-section {
-    background-color: $black;
     display: flex;
     justify-content: center;
     width: 100%;
     position: relative;
-    overflow: hidden;
     max-height: 75vh;
     position: relative;
-    img {
-      object-fit: contain;
+    height: 100%;
+
+    .main-img {
+      height: 100%;
       width: 100%;
+      object-fit: contain;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        min-height: 70vh;
+        max-height: 75vh;
+      }
     }
+
+    .main-btn {
+      position: absolute;
+      top: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 22px;
+      padding: 2px;
+      width: 199px;
+      z-index: 2;
+
+      button {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid #FFFFFF;
+        border-radius: 22px;
+        color: white;
+        width: 195px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        display: flex;
+        justify-content: center;
+
+        i {
+          position: absolute;
+          right: 20px;
+        }
+      }
+    }
+
     svg {
       position: absolute;
-      bottom: 0;
+      bottom: -30px;
       width: 100%;
       transform: rotate(180deg);
+
       &:last-of-type {
-        bottom: -10px;
+        bottom: -40px;
       }
     }
   }
-  h1 {
-    font-family: "Agne", sans-serif;
-    font-size: 4rem;
-    text-align: center;
+
+  .main-logo {
+    position: relative;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $grey;
+
+    img {
+      width: 9rem;
+      z-index: 2;
+    }
   }
 }

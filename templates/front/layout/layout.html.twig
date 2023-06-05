@@ -29,8 +29,9 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6tHSrMfIWaUeuNP6pcS6PrK1XzMEEXyk&libraries=places&callback=Function.prototype">
     </script>
 </head>
-<body>
+<body class="min-h-screen">
     {% include "front/layout/header.html.twig" %}
     {% block body %}{% endblock %}
+    {% include "front/layout/footer.html.twig" %}
 </body>
 </html>
