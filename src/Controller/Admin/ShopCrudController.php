@@ -75,8 +75,6 @@ class ShopCrudController extends AbstractController
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
 
-        // dd($shop->getAddress());
-
         if ($form->isSubmitted() && $form->isValid()) {
             $address = $shop->getAddress();
             $addressData = $form->get('address')->getData();

@@ -82,17 +82,33 @@ class ShopRepository extends ServiceEntityRepository
 		$longitude = $search->getCoordinates()->getLongitude();
         $limit = 20;
 
-		$results =  $this->createQueryBuilder('s')
+		$results = $this->createQueryBuilder('s')
 			->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
-			// ->andWhere('s.active = true')
 			->join('s.address', 'a')
 			->orderBy('distance')
 			->setMaxResults($limit)
 			->setParameter('latitude', $latitude)
 			->setParameter('longitude', $longitude)
-			->getQuery()
-			->getResult()
 		;
+
+        if (count($search->getCategory()) > 0) {
+            $results->join('s.category', 'c');
+            $tagConditions = [];
+            foreach ($search->getCategory() as $category) {
+                if ($category !== null) {
+                    $tagConditions[] = 'c.name LIKE :category_'.$category->getId();
+                    $results->setParameter('category_'.$category->getId(), '%'.$category->getName().'%');
+                }
+            }
+            // Combine the condition with a 'OR' bewtween them.
+            $results->andWhere(implode(' OR ', $tagConditions));
+        }
+
+        $results->getQuery()
+                ->getResult();
+
+                dd($results);
+
 		$parsedResult = array();
 		foreach ($results as $result) {
 			$shop = $result[0];
