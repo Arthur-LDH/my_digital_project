@@ -46,14 +46,14 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Query
-    */
-   public function findAllVisibleQuery(Filter $search): ORMQuery
-   {
+     * @return Query
+     */
+    public function findAllVisibleQuery(Filter $search): ORMQuery
+    {
         $query = $this->findVisibleQuery();
-        if($search->getName()){
-            $query = $query ->andWhere("s.name LIKE :name")
-                            ->setParameter('name', '%'.$search->getName().'%');
+        if ($search->getName()) {
+            $query = $query->andWhere("s.name LIKE :name")
+                ->setParameter('name', '%' . $search->getName() . '%');
         }
         // if($search->getRoles()){
         //     $query = $query ->andWhere('s.roles LIKE :roles')
@@ -64,7 +64,7 @@ class ShopRepository extends ServiceEntityRepository
         //                     ->setParameter('isverified', $search->getIsVerified());
         // }
         return $query->getQuery();
-   }
+    }
 
     public function findVisibleQuery(): ORMQueryBuilder
     {
@@ -118,6 +118,8 @@ class ShopRepository extends ServiceEntityRepository
         }
 
         $results = $queryBuilder->getQuery()->getResult();
+
+                dd($results);
 
 		$parsedResult = array();
 		foreach ($results as $result) {
