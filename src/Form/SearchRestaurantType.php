@@ -24,21 +24,20 @@ class SearchRestaurantType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => FoodCategory::class,
                 'autocomplete' => true,
-                'multiple' => true
-            ])
-        ;
+                'multiple' => true,
+            ]);
         $builder->get("coordinates")->addModelTransformer(new CallbackTransformer(
             // Transform the Point to a string
             function (?Point $point) {
-                if(is_null($point)) return "0 0";
-            
+                if (is_null($point)) return "0 0";
+
                 // e.g "-74.07867091 4.66455174"
                 return "{$point->getX()} {$point->getY()}";
             },
             // Transform the string from the form back to a Point type
             function (string $coordinates) {
                 $coordinates = explode(" ", $coordinates);
-            
+
                 return new Point($coordinates[0], $coordinates[1], null);
             }
         ));

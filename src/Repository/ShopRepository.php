@@ -45,14 +45,14 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Query
-    */
-   public function findAllVisibleQuery(Filter $search): ORMQuery
-   {
+     * @return Query
+     */
+    public function findAllVisibleQuery(Filter $search): ORMQuery
+    {
         $query = $this->findVisibleQuery();
-        if($search->getName()){
-            $query = $query ->andWhere("s.name LIKE :name")
-                            ->setParameter('name', '%'.$search->getName().'%');
+        if ($search->getName()) {
+            $query = $query->andWhere("s.name LIKE :name")
+                ->setParameter('name', '%' . $search->getName() . '%');
         }
         // if($search->getRoles()){
         //     $query = $query ->andWhere('s.roles LIKE :roles')
@@ -63,7 +63,7 @@ class ShopRepository extends ServiceEntityRepository
         //                     ->setParameter('isverified', $search->getIsVerified());
         // }
         return $query->getQuery();
-   }
+    }
 
     public function findVisibleQuery(): ORMQueryBuilder
     {
@@ -71,50 +71,52 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-	 * Get all shops in a radius around a position
-	 * @param Search $search
-	 * @param int $radius
-	 * @return Shop[]
-	 */
-	public function findRestaurants(Search $search , int $radius = 1000): array {
-        
-		$latitude = $search->getCoordinates()->getLatitude();
-		$longitude = $search->getCoordinates()->getLongitude();
+     * Get all shops in a radius around a position
+     * @param Search $search
+     * @param int $radius
+     * @return Shop[]
+     */
+    public function findRestaurants(Search $search, int $radius = 1000): array
+    {
+
+        $latitude = $search->getCoordinates()->getLatitude();
+        $longitude = $search->getCoordinates()->getLongitude();
         $limit = 20;
 
-		$results = $this->createQueryBuilder('s')
-			->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
-			->join('s.address', 'a')
-			->orderBy('distance')
-			->setMaxResults($limit)
-			->setParameter('latitude', $latitude)
-			->setParameter('longitude', $longitude)
-		;
+        $results = $this->createQueryBuilder('s')
+            ->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
+            ->join('s.address', 'a')
+            ->orderBy('distance')
+            ->setMaxResults($limit)
+            ->setParameter('latitude', $latitude)
+            ->setParameter('longitude', $longitude)
+            ->getQuery()
+            ->getResult();
 
-        if (count($search->getCategory()) > 0) {
-            $results->join('s.category', 'c');
-            $tagConditions = [];
-            foreach ($search->getCategory() as $category) {
-                if ($category !== null) {
-                    $tagConditions[] = 'c.name LIKE :category_'.$category->getId();
-                    $results->setParameter('category_'.$category->getId(), '%'.$category->getName().'%');
-                }
-            }
-            // Combine the condition with a 'OR' bewtween them.
-            $results->andWhere(implode(' OR ', $tagConditions));
+        // if (count($search->getCategory()) > 0) {
+        //     $results->join('s.category', 'c');
+        //     $tagConditions = [];
+        //     foreach ($search->getCategory() as $category) {
+        //         if ($category !== null) {
+        //             $tagConditions[] = 'c.name LIKE :category_' . $category->getId();
+        //             $results->setParameter('category_' . $category->getId(), '%' . $category->getName() . '%');
+        //         }
+        //     }
+        //     // Combine the condition with a 'OR' bewtween them.
+        //     $results->andWhere(implode(' OR ', $tagConditions));
+        // }
+
+        // $results->getQuery()
+        //     ->getResult();
+
+        // dd($results);
+
+        $parsedResult = array();
+        foreach ($results as $result) {
+            $shop = $result[0];
+            $shop->setDistance($result['distance']);
+            $parsedResult[] = $shop;
         }
-
-        $results->getQuery()
-                ->getResult();
-
-                dd($results);
-
-		$parsedResult = array();
-		foreach ($results as $result) {
-			$shop = $result[0];
-			$shop->setDistance($result['distance']);
-			$parsedResult[] = $shop;
-		}
-		return $parsedResult;
-	}
+        return $parsedResult;
+    }
 }

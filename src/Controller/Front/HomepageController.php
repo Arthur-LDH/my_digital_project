@@ -28,7 +28,7 @@ class HomepageController extends AbstractController
         $searchForm = $this->createForm(SearchRestaurantType::class, $search);
         $searchForm->handleRequest($request);
 
-        if($searchForm->isSubmitted() && $searchForm->isValid()){
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $shops = $this->shopRepository->findRestaurants($search);
             $request->getSession()->set('shops', $shops);
             return $this->redirectToRoute('app_results', [], Response::HTTP_SEE_OTHER);
@@ -46,7 +46,7 @@ class HomepageController extends AbstractController
     {
         $shops = $request->getSession()->get('shops');
 
-        if(!$shops){
+        if (!$shops) {
             return $this->redirectToRoute('app_home');
         }
 
