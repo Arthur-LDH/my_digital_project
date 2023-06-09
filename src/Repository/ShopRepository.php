@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Filter;
 use App\Entity\Search;
 use App\Entity\Shop;
+use App\Entity\FoodCategory;
 use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Query as ORMQuery;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
@@ -76,38 +77,47 @@ class ShopRepository extends ServiceEntityRepository
 	 * @param int $radius
 	 * @return Shop[]
 	 */
-	public function findRestaurants(Search $search , int $radius = 1000): array {
+	public function findRestaurants(Search $search , int $radius = 2000): array {
         
 		$latitude = $search->getCoordinates()->getLatitude();
 		$longitude = $search->getCoordinates()->getLongitude();
-        $limit = 20;
+        $limit = 40;
 
-		$results = $this->createQueryBuilder('s')
-			->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
-			->join('s.address', 'a')
-			->orderBy('distance')
-			->setMaxResults($limit)
-			->setParameter('latitude', $latitude)
-			->setParameter('longitude', $longitude)
-		;
+		$queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
+            ->join('s.address', 'a')
+            ->orderBy('distance')
+            ->setMaxResults($limit)
+            ->setParameter('latitude', $latitude)
+            ->setParameter('longitude', $longitude);
 
         if (count($search->getCategory()) > 0) {
-            $results->join('s.category', 'c');
+            $subQueryBuilder = $this->createQueryBuilder('s_sub');
+            $subQueryBuilder->select('s_sub.id')
+                ->join('s_sub.category', 'c_sub');
+
             $tagConditions = [];
+            $parameters = ['latitude' => $latitude, 'longitude' => $longitude];
             foreach ($search->getCategory() as $category) {
                 if ($category !== null) {
-                    $tagConditions[] = 'c.name LIKE :category_'.$category->getId();
-                    $results->setParameter('category_'.$category->getId(), '%'.$category->getName().'%');
+                    $parameterName = 'category_'.$category->getId();
+                    $parameters[$parameterName] = '%'.$category->getName().'%';
+                    $tagConditions[] = 'c_sub.name LIKE :' . $parameterName;
                 }
             }
-            // Combine the condition with a 'OR' bewtween them.
-            $results->andWhere(implode(' OR ', $tagConditions));
+
+            if (!empty($tagConditions)) {
+                // Combine the condition with a 'OR' between them.
+                $subQueryBuilder->andWhere(implode(' OR ', $tagConditions));
+            }
+
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->in('s.id', $subQueryBuilder->getDQL()));
+
+            $queryBuilder->setParameters($parameters);
         }
 
-        $results->getQuery()
-                ->getResult();
-
-                dd($results);
+        $results = $queryBuilder->getQuery()->getResult();
 
 		$parsedResult = array();
 		foreach ($results as $result) {
