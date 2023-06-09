@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Filter;
 use App\Entity\Search;
 use App\Entity\Shop;
+use App\Entity\FoodCategory;
 use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Query as ORMQuery;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
@@ -71,52 +72,59 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all shops in a radius around a position
-     * @param Search $search
-     * @param int $radius
-     * @return Shop[]
-     */
-    public function findRestaurants(Search $search, int $radius = 1000): array
-    {
+	 * Get all shops in a radius around a position
+	 * @param Search $search
+	 * @param int $radius
+	 * @return Shop[]
+	 */
+	public function findRestaurants(Search $search , int $radius = 2000): array {
+        
+		$latitude = $search->getCoordinates()->getLatitude();
+		$longitude = $search->getCoordinates()->getLongitude();
+        $limit = 40;
 
-        $latitude = $search->getCoordinates()->getLatitude();
-        $longitude = $search->getCoordinates()->getLongitude();
-        $limit = 20;
-
-        $results = $this->createQueryBuilder('s')
+		$queryBuilder = $this->createQueryBuilder('s')
             ->select('s', 'a', 'st_distance_sphere(a.coordinates, POINT(:longitude, :latitude)) as distance')
             ->join('s.address', 'a')
             ->orderBy('distance')
             ->setMaxResults($limit)
             ->setParameter('latitude', $latitude)
-            ->setParameter('longitude', $longitude)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('longitude', $longitude);
 
-        // if (count($search->getCategory()) > 0) {
-        //     $results->join('s.category', 'c');
-        //     $tagConditions = [];
-        //     foreach ($search->getCategory() as $category) {
-        //         if ($category !== null) {
-        //             $tagConditions[] = 'c.name LIKE :category_' . $category->getId();
-        //             $results->setParameter('category_' . $category->getId(), '%' . $category->getName() . '%');
-        //         }
-        //     }
-        //     // Combine the condition with a 'OR' bewtween them.
-        //     $results->andWhere(implode(' OR ', $tagConditions));
-        // }
+        if (count($search->getCategory()) > 0) {
+            $subQueryBuilder = $this->createQueryBuilder('s_sub');
+            $subQueryBuilder->select('s_sub.id')
+                ->join('s_sub.category', 'c_sub');
 
-        // $results->getQuery()
-        //     ->getResult();
+            $tagConditions = [];
+            $parameters = ['latitude' => $latitude, 'longitude' => $longitude];
+            foreach ($search->getCategory() as $category) {
+                if ($category !== null) {
+                    $parameterName = 'category_'.$category->getId();
+                    $parameters[$parameterName] = '%'.$category->getName().'%';
+                    $tagConditions[] = 'c_sub.name LIKE :' . $parameterName;
+                }
+            }
 
-        // dd($results);
+            if (!empty($tagConditions)) {
+                // Combine the condition with a 'OR' between them.
+                $subQueryBuilder->andWhere(implode(' OR ', $tagConditions));
+            }
 
-        $parsedResult = array();
-        foreach ($results as $result) {
-            $shop = $result[0];
-            $shop->setDistance($result['distance']);
-            $parsedResult[] = $shop;
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->in('s.id', $subQueryBuilder->getDQL()));
+
+            $queryBuilder->setParameters($parameters);
         }
-        return $parsedResult;
-    }
+
+        $results = $queryBuilder->getQuery()->getResult();
+
+		$parsedResult = array();
+		foreach ($results as $result) {
+			$shop = $result[0];
+			$shop->setDistance($result['distance']);
+			$parsedResult[] = $shop;
+		}
+		return $parsedResult;
+	}
 }
