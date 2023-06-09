@@ -17,10 +17,9 @@ class ShopFilterType extends AbstractType
                 'required' => false,
                 'label' => 'Rechercher',
                 'attr' => [
-                    'placeholder' => 'Rechercher', 
+                    'placeholder' => 'Rechercher',
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

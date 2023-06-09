@@ -17,6 +17,14 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
+            <div class="second-btn">
+                {% if app.user %}
+                <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                    Rechercher avec mes adresses
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                {% endif %}
+            </div>
             <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
                 <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:#2A9D8F;"></path>
             </svg>
@@ -45,19 +53,24 @@
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative">
-                <div class="modalInput">
+                <div class="modalInput w-100">
                     {{ form_start(searchForm)}}
                         {# <label for="find_place" class="invisible"></label>
                         <input type="text" id="find_place" class="w-full p-2.5" placeholder="Rechercher un lieu" required><i class="fa-solid fa-magnifying-glass"></i> #}
                         <div class="mb-3" {{ stimulus_controller('google-place', {'page' : 'home', 'form': 'search_restaurant' }) }}>
-                            <label class="form-label" for="searchBarAutocomplete">Adresse</label>
-                            <input  type="text"
-                                    id="searchBarAutocomplete"
-                                    aria-label="Adresse" 
-                                    class="form-control">
+                            <div class="searchInput">
+                                <label class="form-label" for="searchBarAutocomplete"></label>
+                                <input  type="text"
+                                        id="searchBarAutocomplete"
+                                        aria-label="Adresse"
+                                        class="form-control">
+                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                            </div>
                         </div>
                         {{ form_row(searchForm.coordinates) }}
-                        <button type="submit">Rechercher</button>
+                        <br>
+                        {{ form_widget(searchForm.category, {'attr': {'class': 'searchInputCategory'}, 'placeholder' : 'Chercher par catégorie'}) }}
+                        <button class="mt-16" type="submit">Rechercher</button>
                     {{ form_end(searchForm) }}
                 </div>
                 </div>

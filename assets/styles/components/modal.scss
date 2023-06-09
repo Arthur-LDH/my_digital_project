@@ -12,19 +12,33 @@
     .modalInput {
         display: flex;
         border-style: none;
+        width: 100%;
 
-        input {
-            background: none;
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 15px;
-            color: $black;
-            border: none;
-            border-bottom: 1px solid $black;
+        form {
+            width: 100%;
 
-            &:focus {}
+            .searchInput {
+                width: 100%;
+                display: flex;
+
+                input {
+                    width: 100%;
+                }
+            }
+
+            input {
+                background: none;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+                color: $black;
+                border: none;
+                border-bottom: 1px solid $black;
+
+                &:focus {}
+            }
         }
     }
 }

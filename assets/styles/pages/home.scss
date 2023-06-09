@@ -24,13 +24,12 @@
       }
     }
 
-    .main-btn {
+    .main-btn,
+    .second-btn {
       position: absolute;
-      top: 50%;
       background: rgba(0, 0, 0, 0.4);
       border-radius: 22px;
       padding: 2px;
-      width: 199px;
       z-index: 2;
 
       button {
@@ -38,7 +37,6 @@
         border: 1px solid #FFFFFF;
         border-radius: 22px;
         color: white;
-        width: 195px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -49,7 +47,26 @@
         i {
           position: absolute;
           right: 20px;
+          top: 14px;
         }
+      }
+    }
+
+    .main-btn {
+      top: 50%;
+      width: 199px;
+
+      button {
+        width: 195px;
+      }
+    }
+
+    .second-btn {
+      top: 35%;
+      width: 259px;
+
+      button {
+        width: 255px;
       }
     }
 
