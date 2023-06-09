@@ -43,7 +43,7 @@
         {% endfor %}
     </div> #}
     <!--Carousel items-->
-            <div class="relative w-full md:h-[70vh] overflow-hidden after:clear-both after:block after:content-['']">
+            <div class="relative pt-[80px] w-full md:h-[70vh] overflow-hidden after:clear-both after:block after:content-['']">
                 {% for shop in shops | slice(0,3) %}
                     <div class="relative float-left -mr-[100%] w-full h-full overflow-hidden {% if shop != shops[0] %}hidden{% endif %} transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none" {% if shop == shops[0] %}data-te-carousel-active{% endif %} data-te-carousel-item style="backface-visibility: hidden">
                         <div class="relative flex items-center w-full h-full">
