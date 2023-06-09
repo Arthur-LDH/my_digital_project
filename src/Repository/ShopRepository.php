@@ -119,8 +119,6 @@ class ShopRepository extends ServiceEntityRepository
 
         $results = $queryBuilder->getQuery()->getResult();
 
-                dd($results);
-
 		$parsedResult = array();
 		foreach ($results as $result) {
 			$shop = $result[0];
