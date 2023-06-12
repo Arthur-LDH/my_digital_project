@@ -58,6 +58,17 @@ class ShopCrudController extends AbstractController
             $this->entityManager->persist($address);
             $shop->setAddress($address);
             $this->entityManager->persist($shop);
+
+            $imageFile = $form->get('image')->getData();
+
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
+
+            $imageFile->move($destination, $newFilename);
+
+            $shop->setImage($newFilename);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_admin_shop_index', [], Response::HTTP_SEE_OTHER);
@@ -83,8 +94,22 @@ class ShopCrudController extends AbstractController
             $address->setPostalCode($addressData->getPostalCode());
             $address->setCity($addressData->getCity());
             $address->setCoordinates($addressData->getCoordinates());
-            $addressRepository->save($address, true);
-            $this->shopRepository->save($shop, true);
+
+            $imageFile = $form->get('image')->getData();
+
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
+
+            $imageFile->move($destination, $newFilename);
+
+            if($shop->getImage()){
+                unlink($destination.'/'.$shop->getImage());
+            }
+
+            $shop->setImage($newFilename);
+
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('app_admin_shop_index', [], Response::HTTP_SEE_OTHER);
         }

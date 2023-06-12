@@ -47,10 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: RestaurantSearch::class)]
+    private Collection $restaurantSearches;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->restaurantSearches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +217,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($review->getUser() === $this) {
                 $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RestaurantSearch>
+     */
+    public function getRestaurantSearches(): Collection
+    {
+        return $this->restaurantSearches;
+    }
+
+    public function addRestaurantSearch(RestaurantSearch $restaurantSearch): self
+    {
+        if (!$this->restaurantSearches->contains($restaurantSearch)) {
+            $this->restaurantSearches->add($restaurantSearch);
+            $restaurantSearch->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurantSearch(RestaurantSearch $restaurantSearch): self
+    {
+        if ($this->restaurantSearches->removeElement($restaurantSearch)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurantSearch->getUser() === $this) {
+                $restaurantSearch->setUser(null);
             }
         }
 

@@ -2,9 +2,12 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\RestaurantSearch;
 use App\Entity\Search;
 use App\Form\SearchRestaurantType;
+use App\Repository\RestaurantSearchRepository;
 use App\Repository\ShopRepository;
+use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +24,7 @@ class HomepageController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(Request $request): Response
+    public function index(Request $request, RestaurantSearchRepository $restaurantSearchRepository): Response
     {
         $search = new Search();
 
@@ -31,6 +34,18 @@ class HomepageController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $shops = $this->shopRepository->findRestaurants($search);
             $request->getSession()->set('shops', $shops);
+            // dd($searchForm->get('street')->getData());
+            $restaurantSearch = new RestaurantSearch();
+            $restaurantSearch   ->setUserAddress($search->getStreet())
+                                ->setUserCp($search->getPostalCode())
+                                ->setUserCity($search->getCity())
+                                ->setUserCoordinates($search->getCoordinates())
+                                ->setResults($shops)
+                                ->setCreatedAt(new DateTimeImmutable());
+            if($this->getUser()){
+                $restaurantSearch->setUser($this->getUser());
+            }
+            $restaurantSearchRepository->save($restaurantSearch, true);
             return $this->redirectToRoute('app_results', [], Response::HTTP_SEE_OTHER);
         }
 

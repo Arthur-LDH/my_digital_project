@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantSearchRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RestaurantSearchRepository::class)]
@@ -27,6 +28,12 @@ class RestaurantSearch
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'restaurantSearches')]
+    private ?User $user = null;
+
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $results = [];
 
     public function getId(): ?int
     {
@@ -89,6 +96,30 @@ class RestaurantSearch
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getResults(): array
+    {
+        return $this->results;
+    }
+
+    public function setResults(array $results): self
+    {
+        $this->results = $results;
 
         return $this;
     }
