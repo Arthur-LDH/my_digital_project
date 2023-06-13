@@ -42,6 +42,11 @@ class HomepageController extends AbstractController
                                 ->setUserCoordinates($search->getCoordinates())
                                 ->setResults($shops)
                                 ->setCreatedAt(new DateTimeImmutable());
+            if($search->getCategory()){
+                foreach($search->getCategory() as $category){
+                    $restaurantSearch->addCategory($category);
+                }
+            }
             if($this->getUser()){
                 $restaurantSearch->setUser($this->getUser());
             }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantSearchRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,14 @@ class RestaurantSearch
 
     #[ORM\Column(type: Types::ARRAY)]
     private array $results = [];
+
+    #[ORM\ManyToMany(targetEntity: FoodCategory::class, inversedBy: 'restaurantSearches')]
+    private Collection $category;
+
+    public function __construct()
+    {
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,30 @@ class RestaurantSearch
     public function setResults(array $results): self
     {
         $this->results = $results;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FoodCategory>
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(FoodCategory $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(FoodCategory $category): self
+    {
+        $this->category->removeElement($category);
 
         return $this;
     }

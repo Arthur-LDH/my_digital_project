@@ -21,9 +21,13 @@ class FoodCategory
     #[ORM\ManyToMany(targetEntity: Shop::class, mappedBy: 'category')]
     private Collection $shops;
 
+    #[ORM\ManyToMany(targetEntity: RestaurantSearch::class, mappedBy: 'category')]
+    private Collection $restaurantSearches;
+
     public function __construct()
     {
         $this->shops = new ArrayCollection();
+        $this->restaurantSearches = new ArrayCollection();
     }
 
     public function __toString()
@@ -70,6 +74,33 @@ class FoodCategory
     {
         if ($this->shops->removeElement($shop)) {
             $shop->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RestaurantSearch>
+     */
+    public function getRestaurantSearches(): Collection
+    {
+        return $this->restaurantSearches;
+    }
+
+    public function addRestaurantSearch(RestaurantSearch $restaurantSearch): self
+    {
+        if (!$this->restaurantSearches->contains($restaurantSearch)) {
+            $this->restaurantSearches->add($restaurantSearch);
+            $restaurantSearch->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurantSearch(RestaurantSearch $restaurantSearch): self
+    {
+        if ($this->restaurantSearches->removeElement($restaurantSearch)) {
+            $restaurantSearch->removeCategory($this);
         }
 
         return $this;

@@ -18,7 +18,7 @@
                 </div>
                 <div class="details">
                 <div class="number">
-                    <span>0</span>
+                    <span>{{ totalSearch }}</span>
                 </div>
                 <div class="desc">Total Recherches</div>
                 </div>
@@ -31,9 +31,9 @@
                 </div>
                 <div class="details">
                 <div class="number">
-                    <span>0</span>
+                    <span>{{ totalMonth }}</span>
                 </div>
-                <div class="desc">Total Recherches du mois</div>
+                <div class="desc">Total ce mois</div>
                 </div>
             </a>
             </div>
@@ -44,9 +44,9 @@
                 </div>
                 <div class="details">
                 <div class="number">
-                    <span>0</span>
+                    <span>{{ mostFrequentCity[0]['user_city'] }}</span>
                 </div>
-                <div class="desc">Recherches aujourd'hui</div>
+                <div class="desc">Ville la plus recherchée</div>
                 </div>
             </a>
             </div>
@@ -57,9 +57,22 @@
                 </div>
                 <div class="details">
                 <div class="number">
-                    <span>0</span>
+                    <span>{{ totalReview }}</span>
                 </div>
                 <div class="desc">Avis</div>
+                </div>
+            </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <a class="dashboard-stat purple" href="#">
+                <div class="visual">
+                <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                <div class="number">
+                    <span>{{ mostFrequentCategory[0]['categoryName'] }}</span>
+                </div>
+                <div class="desc">Catégorie la plus recherchée</div>
                 </div>
             </a>
             </div>
