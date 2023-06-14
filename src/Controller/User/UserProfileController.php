@@ -8,6 +8,8 @@ use App\Form\AvatarType;
 use App\Form\ChangePasswordType;
 use App\Form\DeleteAvatarType;
 use App\Repository\AddressRepository;
+use App\Repository\RestaurantSearchRepository;
+use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,16 +23,35 @@ class UserProfileController extends AbstractController
 {
 
     private $addressRepository;
+    private $restaurantSearchRepository;
+    private $reviewRepository;
 
-    public function __construct(AddressRepository $addressRepository)
+    public function __construct(AddressRepository $addressRepository, RestaurantSearchRepository $restaurantSearchRepository, ReviewRepository $reviewRepository)
     {
         $this->addressRepository = $addressRepository;
+        $this->restaurantSearchRepository = $restaurantSearchRepository;
+        $this->reviewRepository = $reviewRepository;
     }
 
     #[Route('/', name: 'app_account')]
     public function index(): Response
     {
+
+        $searches = $this->restaurantSearchRepository->findByUser($this->getUser());
+
         return $this->render('front/user/index.html.twig', [
+            'searches' => $searches
+        ]);
+    }
+
+    #[Route('/reviews', name: 'app_account_reviews')]
+    public function reviews()
+    {
+        $reviews = $this->reviewRepository->findByUser($this->getUser());
+
+
+        return $this->render('front/user/reviews.html.twig', [
+            'reviews' => $reviews
         ]);
     }
 

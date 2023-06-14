@@ -1,0 +1,10 @@
+{% extends 'front/user/index.html.twig' %}
+
+{% block title %}- Mes reviews{% endblock %}
+
+{% block content %}
+    {% for review in reviews %}
+    {% else %}
+        Vous n'avez encore écrit aucune review
+    {% endfor %}
+{% endblock %}

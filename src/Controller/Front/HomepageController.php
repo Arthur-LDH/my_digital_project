@@ -60,11 +60,18 @@ class HomepageController extends AbstractController
         ]);
     }
 
+    
+
 
     #[Route('/results', name: 'app_results')]
     public function restaurantSuggestion(Request $request): Response
     {
-        $shops = $request->getSession()->get('shops');
+        $session = $request->getSession()->get('shops');
+        $shops = [];
+
+        foreach($session as $shop){
+            $shops[] = $this->shopRepository->findOneById($shop->getId());
+        }
 
         if (!$shops) {
             return $this->redirectToRoute('app_home');

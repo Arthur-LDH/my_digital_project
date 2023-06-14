@@ -16,11 +16,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_link_tags('app') }}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
-    <title>{% block title %}VmB - Vite ma bouffe{% endblock %}</title>
+    <title>VmB {% block title %} - Vite ma bouffe{% endblock %}</title>
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}

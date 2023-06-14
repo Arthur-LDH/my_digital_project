@@ -27,6 +27,7 @@
 
             <nav class="w-full whitespace-nowrap scrollbar-hide text-color-secondary flex gap-2">
                 <a href="{{ path('app_account') }}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Accueil</a>
+                <a href="{{ path('app_account_reviews') }}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Mes reviews</a>
                 <a href="{{ path('app_account_address') }}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Mes adresses</a>
                 <a href="{{ path('app_account_password' )}}" class="font-bold px-3 py-2 rounded-lg hover-color-primary">Modifier mot de passe</a>
             </nav>
@@ -35,6 +36,51 @@
     <hr class="h-px border-0 theme-tertiary">
     <div class="mt-6 md:mt-12 mb-4 p-4 flex flex-wrap justify-center md:px-32 lg:px-48 text-color-primary">
         {% block content %}
+            
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Selection
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Ville
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for search in searches %}
+                            <tr>
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ search.results[0].name }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ search.createdAt|date() }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ search.userCity }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a role="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" data-te-target="#{{ 'modal_' ~ search.id }}" data-te-toggle="modal">Voir toutes les selections</a>
+                                </td>
+                            </tr>
+                            {{ include('components/reviews/_modal.html.twig', {
+                                modalTitle: 'Selection du ' ~ search.createdAt|date(),
+                                modalTarget: 'modal_' ~ search.id,
+                                turboSrc: path('app_modal_selection', { 'id' : search.id }),
+                                turboId: 'selection_list' ,
+                            }) }}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock %}
     </div>
 {% endblock %}
