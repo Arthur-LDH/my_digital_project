@@ -4,119 +4,176 @@
     {# {{ dump(shops) }} #}
 
     {# Start Carousel #}
-    <div
-    id="carouselExampleCaptions"
-    class="relative"
-    data-te-carousel-init
-    data-te-carousel-slide>
+    <div id="carouselExampleCaptions" class="relative hidden" data-te-carousel-init data-te-carousel-slide>
 
-    {% if shops|length > 1 %}
-        <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0" data-te-carousel-indicators>
-            {% for key in shops| slice(0,3)|keys  %}
-                <button type="button" data-te-target="#headerCarousel" data-te-slide-to="{{ key }}" data-te-carousel-active class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none" aria-current="true" aria-label="Slide {{ key + 1 }}"></button>
-            {% endfor %}
-        </div>
-    {% endif %}
-    <!--Carousel items-->
-    {# <div
-        class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-        <!--First item-->
-        {% for shop in shops | slice(0,2) %}
-        <div
-        class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-        {% if shop != shops[0] %}
-        {% endif %}
-        {% if shop == shops[0] %}
-        data-te-carousel-active
-        {% endif %}
-        data-te-carousel-item
-        style="backface-visibility: hidden">
-            <img
-            src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
-            class="block w-full"
-            alt="..." />
-            <div
-                class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-                <h5 class="text-xl">{{ shop.name }}</h5>
-            </div>
-        </div>
-        {% endfor %}
-    </div> #}
-    <!--Carousel items-->
-            <div class="relative pt-[80px] w-full md:h-[70vh] overflow-hidden after:clear-both after:block after:content-['']">
-                {% for shop in shops | slice(0,3) %}
-                    <div class="relative float-left -mr-[100%] w-full h-full overflow-hidden {% if shop != shops[0] %}hidden{% endif %} transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none" {% if shop == shops[0] %}data-te-carousel-active{% endif %} data-te-carousel-item style="backface-visibility: hidden">
-                        <div class="relative flex items-center w-full h-full">
-                            <img
-                                src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
-                                class="block w-full"
-                                alt="..." />
-                            <div class="absolute inset-x-[10%] bottom-5 md:bottom-16 py-5 text-white">
-                                <div class="mb-7">
-                                    <h5 class="text-xl md:text-3xl mb-3">{{ shop.name }}</h5>
-                                    <div class="hidden md:block text-md">
-                                        {# {{ shop.content|raw }} #}
-                                    </div>
-                                </div>
-                                {# <a href="{{ shop.btnUrl }}" class="btn-main mt-4 rounded-lg md:text-lg">{{ shop.btnTitle }}</a> #}
-                            </div>
-                        </div>
-                    </div>
+        {% if shops|length > 1 %}
+            <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0" data-te-carousel-indicators>
+                {% for key in shops| slice(0,3)|keys  %}
+                    <button type="button" data-te-target="#headerCarousel" data-te-slide-to="{{ key }}" data-te-carousel-active class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none" aria-current="true" aria-label="Slide {{ key + 1 }}"></button>
                 {% endfor %}
             </div>
+        {% endif %}
+        <!--Carousel items-->
+        {# <div
+            class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
+            <!--First item-->
+            {% for shop in shops | slice(0,2) %}
+            <div
+            class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+            {% if shop != shops[0] %}
+            {% endif %}
+            {% if shop == shops[0] %}
+            data-te-carousel-active
+            {% endif %}
+            data-te-carousel-item
+            style="backface-visibility: hidden">
+                <img
+                src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
+                class="block w-full"
+                alt="..." />
+                <div
+                    class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+                    <h5 class="text-xl">{{ shop.name }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div> #}
+        <!--Carousel items-->
+                <div class="relative pt-[80px] w-full md:h-[70vh] overflow-hidden after:clear-both after:block after:content-['']">
+                    {% for shop in shops | slice(0,3) %}
+                        <div class="relative float-left -mr-[100%] w-full h-full overflow-hidden {% if shop != shops[0] %}hidden{% endif %} transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none" {% if shop == shops[0] %}data-te-carousel-active{% endif %} data-te-carousel-item style="backface-visibility: hidden">
+                            <div class="relative flex items-center w-full h-full">
+                                <img
+                                    src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
+                                    class="block w-full"
+                                    alt="..." />
+                                <div class="absolute inset-x-[10%] bottom-5 md:bottom-16 py-5 text-white">
+                                    <div class="mb-7">
+                                        <h5 class="text-xl md:text-3xl mb-3">{{ shop.name }}</h5>
+                                        <div class="hidden md:block text-md">
+                                            {# {{ shop.content|raw }} #}
+                                        </div>
+                                    </div>
+                                    {# <a href="{{ shop.btnUrl }}" class="btn-main mt-4 rounded-lg md:text-lg">{{ shop.btnTitle }}</a> #}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
 
-    <!--Carousel controls - prev item-->
-    <button
-        class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-        type="button"
-        data-te-target="#carouselExampleCaptions"
-        data-te-slide="prev">
-        <span class="inline-block h-8 w-8">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-6 w-6">
-            <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        </span>
-        <span
-        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-        >Previous</span
-        >
-    </button>
-    <!--Carousel controls - next item-->
-    <button
-        class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-        type="button"
-        data-te-target="#carouselExampleCaptions"
-        data-te-slide="next">
-        <span class="inline-block h-8 w-8">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-6 w-6">
-            <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
-        </span>
-        <span
-        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-        >Next</span
-        >
-    </button>
+        <!--Carousel controls - prev item-->
+        <button
+            class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+            type="button"
+            data-te-target="#carouselExampleCaptions"
+            data-te-slide="prev">
+            <span class="inline-block h-8 w-8">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6">
+                <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+            </span>
+            <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+            >Previous</span
+            >
+        </button>
+        <!--Carousel controls - next item-->
+        <button
+            class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+            type="button"
+            data-te-target="#carouselExampleCaptions"
+            data-te-slide="next">
+            <span class="inline-block h-8 w-8">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6">
+                <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+            </span>
+            <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+            >Next</span
+            >
+        </button>
     </div>
     {# End Carousel #}
+
+    <section class="background-radial-gradient mb-32 pt-[80px]">
+        <style>
+            .background-radial-gradient {
+                background-color: hsl(218, 41%, 15%);
+                background-image: radial-gradient(650px circle at 0% 0%,
+                    hsl(218, 41%, 35%) 15%,
+                    hsl(218, 41%, 30%) 35%,
+                    hsl(218, 41%, 20%) 75%,
+                    hsl(218, 41%, 19%) 80%,
+                    transparent 100%),
+                radial-gradient(1250px circle at 100% 100%,
+                    hsl(218, 41%, 45%) 15%,
+                    hsl(218, 41%, 30%) 35%,
+                    hsl(218, 41%, 20%) 75%,
+                    hsl(218, 41%, 19%) 80%,
+                    transparent 100%);
+            }
+        </style>
+
+        <div class="px-6 py-12 text-center md:px-12 lg:text-left">
+            <div class="container mx-auto">
+                <div class="grid items-center gap-12 {% if shops[0].image %}lg:grid-cols-2{% endif %}">
+                    <div class="mt-12 lg:mt-0">
+                        <h1 class="mb-12 text-5xl font-bold tracking-tight text-[hsl(218,81%,95%)] md:text-6xl xl:text-7xl">
+                            <span class="text-[hsl(218,81%,75%)]">Votre sélection</span>
+                        </h1>
+                        <h1 class="mb-12 text-5xl font-bold tracking-tight text-[hsl(218,81%,95%)] md:text-6xl xl:text-7xl">
+                            {{ shops[0].name }}
+                        </h1>
+                        <p class="text-lg text-[hsl(218,81%,95%)]">
+                            {{ shops[0].description }}
+                        </p>
+                        <div class="flex items-center mb-5">
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Second star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Third star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fourth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                        <a role="button" class="text-md text-blue-600 hover:text-blue-400" data-te-toggle="modal" data-te-target="#exampleModalCenteredScrollable" data-te-ripple-init data-te-ripple-color="light">
+                            Voir les reviews
+                        </a>
+                        <p class="text-sm text-[hsl(218,81%,95%)] mt-3">
+                            {{ shops[0].phone }} - {{ shops[0].website }}
+                        </p>
+                        {{ include('components/reviews/modal_review.html.twig') }}
+                    </div>
+                    {% if shops[0].image %}
+                    <div class="mb-12 lg:mb-0">
+                        <div class="embed-responsive embed-responsive-16by9 relative overflow-hidden rounded-lg shadow-lg"
+                        style="padding-top: 56.25%">
+                        
+                            <img src="/uploads/shop_image/{{ shops[0].image }}" alt="" class="embed-responsive-item absolute top-0 right-0 bottom-0 left-0 h-full w-full object-cover">                        
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 
     {# Start Restaurant List #}
     <!-- Container for demo purpose -->
@@ -124,7 +181,7 @@
     <!-- Section: Design Block -->
     <section class="mb-32 text-center">
         <h2 class="mb-12 pb-4 text-center text-3xl font-bold">
-
+            Plus de suggestions
         </h2>
 
         <div class="grid gap-32 lg:grid-cols-3 xl:gap-x-12">

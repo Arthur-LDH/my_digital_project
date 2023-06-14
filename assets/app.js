@@ -16,7 +16,8 @@ import {
     Dropdown,
     Input,
     initTE,
+    Modal,
     Carousel,
 } from "tw-elements";
 
-initTE({ Dropdown, Input, Carousel });
+initTE({ Dropdown, Input, Carousel, Modal });

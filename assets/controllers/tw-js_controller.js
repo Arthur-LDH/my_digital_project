@@ -4,6 +4,7 @@ import {
     Collapse,
     Sidenav,
     Input,
+    Modal,
     initTE,
 } from "tw-elements";
 
@@ -11,6 +12,6 @@ import {
 
 export default class extends Controller {
     connect() {
-        initTE({ Carousel, Collapse, Sidenav, Input });
+        initTE({ Carousel, Collapse, Sidenav, Input, Modal });
     }
 }
