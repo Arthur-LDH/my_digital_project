@@ -3,24 +3,29 @@
 namespace App\Controller\Front;
 
 use App\Entity\RestaurantSearch;
+use App\Entity\Review;
 use App\Entity\Search;
 use App\Form\SearchRestaurantType;
 use App\Repository\RestaurantSearchRepository;
+use App\Form\ShopReviewType;
 use App\Repository\ShopRepository;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 class HomepageController extends AbstractController
 {
 
     private $shopRepository;
+    private $entityManager;
 
-    public function __construct(ShopRepository $shopRepository)
+    public function __construct(ShopRepository $shopRepository, EntityManagerInterface $entityManager)
     {
         $this->shopRepository = $shopRepository;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/', name: 'app_home')]
@@ -35,20 +40,20 @@ class HomepageController extends AbstractController
             $shops = $this->shopRepository->findRestaurants($search);
             shuffle($shops);
             $request->getSession()->set('shops', $shops);
-            
+
             $restaurantSearch = new RestaurantSearch();
-            $restaurantSearch   ->setUserAddress($search->getStreet())
-                                ->setUserCp($search->getPostalCode())
-                                ->setUserCity($search->getCity())
-                                ->setUserCoordinates($search->getCoordinates())
-                                ->setResults($shops)
-                                ->setCreatedAt(new DateTimeImmutable());
-            if($search->getCategory()){
-                foreach($search->getCategory() as $category){
+            $restaurantSearch->setUserAddress($search->getStreet())
+                ->setUserCp($search->getPostalCode())
+                ->setUserCity($search->getCity())
+                ->setUserCoordinates($search->getCoordinates())
+                ->setResults($shops)
+                ->setCreatedAt(new DateTimeImmutable());
+            if ($search->getCategory()) {
+                foreach ($search->getCategory() as $category) {
                     $restaurantSearch->addCategory($category);
                 }
             }
-            if($this->getUser()){
+            if ($this->getUser()) {
                 $restaurantSearch->setUser($this->getUser());
             }
             $restaurantSearchRepository->save($restaurantSearch, true);
@@ -61,7 +66,7 @@ class HomepageController extends AbstractController
         ]);
     }
 
-    
+
 
 
     #[Route('/results', name: 'app_results')]
@@ -70,7 +75,7 @@ class HomepageController extends AbstractController
         $session = $request->getSession()->get('shops');
         $shops = [];
 
-        foreach($session as $shop){
+        foreach ($session as $shop) {
             $shops[] = $this->shopRepository->findOneById($shop->getId());
         }
 
@@ -78,8 +83,28 @@ class HomepageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        // Create the review form
+        $review = new Review();
+        $reviewForm = $this->createForm(ShopReviewType::class, $review);
+        $reviewForm->handleRequest($request);
+
+        if ($reviewForm->isSubmitted() && $reviewForm->isValid()) {
+            $review->setShop($shop); // Set the shop for the review
+            $review->setUser($this->getUser()); // Set the user for the review
+            $review->setCreatedAt(new DateTimeImmutable()); // Set the creation date
+
+            // Save the review to the database
+            $this->entityManager->persist($shop);
+            $this->entityManager->persist($review);
+            $this->entityManager->flush();
+
+            // Redirect to a success page or show a success message
+        }
+
+        // Pass the form view to the template
         return $this->render('front/result_restaurants.html.twig', [
-            'shops' => $shops
+            'shops' => $shops,
+            'reviewForm' => $reviewForm->createView(),
         ]);
     }
 }

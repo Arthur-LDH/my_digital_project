@@ -166,6 +166,13 @@
                         <p class="text-sm text-[hsl(218,81%,95%)] mt-3">
                             {{ shops[0].phone }}
                         </p>
+
+                            {{ form_start(reviewForm) }}
+                            {{ form_row(reviewForm.content) }}
+                            {{ form_row(reviewForm.note) }}
+                            {{ form_row(reviewForm.submit) }}
+                            {{ form_end(reviewForm) }}
+
                     </div>
                     {% if shops[0].image %}
                     <div class="mb-12 lg:mb-0">
