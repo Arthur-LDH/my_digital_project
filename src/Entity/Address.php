@@ -38,6 +38,9 @@ class Address
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $google_link = null;
+
     public function __toString()
     {
         if ($this->getHouseNumber() === null) {
@@ -103,15 +106,15 @@ class Address
 	 * @return Point|null
 	 */
 	public function getCoordinates(): ?Point {
-		return $this->coordinates;
-	}
+         		return $this->coordinates;
+         	}
 	
 	/**
 	 * @param Point|null $coordinates
 	 */
 	public function setCoordinates(?Point $coordinates): void {
-		$this->coordinates = $coordinates;
-	}
+         		$this->coordinates = $coordinates;
+         	}
 
     public function getIdUser(): ?User
     {
@@ -150,6 +153,18 @@ class Address
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getGoogleLink(): ?string
+    {
+        return $this->google_link;
+    }
+
+    public function setGoogleLink(?string $google_link): self
+    {
+        $this->google_link = $google_link;
 
         return $this;
     }

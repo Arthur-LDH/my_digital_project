@@ -50,11 +50,13 @@ class ShopCrudController extends AbstractController
     public function new(Request $request): Response
     {
         $shop = new Shop();
+        $addres = new Address();
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $address = $form->get('address')->getData();
+            $address->setGoogleLink('https://www.google.es/maps?q='.$address->getCoordinates()->getLongitude().','.$address->getCoordinates()->getLatitude());
             $this->entityManager->persist($address);
             $shop->setAddress($address);
             $this->entityManager->persist($shop);
@@ -96,6 +98,7 @@ class ShopCrudController extends AbstractController
             $address->setPostalCode($addressData->getPostalCode());
             $address->setCity($addressData->getCity());
             $address->setCoordinates($addressData->getCoordinates());
+            $address->setGoogleLink('https://www.google.es/maps?q='.$address->getCoordinates()->getLongitude().','.$address->getCoordinates()->getLatitude());
 
             $imageFile = $form->get('image')->getData();
 
