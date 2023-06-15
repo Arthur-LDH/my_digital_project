@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "28a0b84147bb64ae8c12dd1ffe851c63",
-=======
-    "content-hash": "a69351add296dbee21ce0c9350ff3828",
->>>>>>> e954abfcef45dd94a80b8c26c80b4905a6b980e4
     "packages": [
         {
             "name": "creof/doctrine2-spatial",
