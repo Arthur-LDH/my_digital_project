@@ -41,6 +41,7 @@ class SearchRestaurantType extends AbstractType
                 'class' => FoodCategory::class,
                 'autocomplete' => true,
                 'multiple' => true,
+                'required' => false
             ]);
         $builder->get("coordinates")->addModelTransformer(new CallbackTransformer(
             // Transform the Point to a string

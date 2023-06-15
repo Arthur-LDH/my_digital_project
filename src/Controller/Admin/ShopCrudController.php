@@ -61,13 +61,15 @@ class ShopCrudController extends AbstractController
 
             $imageFile = $form->get('image')->getData();
 
-            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+            if($imageFile){
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
 
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
 
-            $imageFile->move($destination, $newFilename);
+                $imageFile->move($destination, $newFilename);
 
-            $shop->setImage($newFilename);
+                $shop->setImage($newFilename);
+            }
 
             $this->entityManager->flush();
 
@@ -97,17 +99,22 @@ class ShopCrudController extends AbstractController
 
             $imageFile = $form->get('image')->getData();
 
-            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+            if($imageFile){
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
 
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/shop_image';
 
-            $imageFile->move($destination, $newFilename);
+                $imageFile->move($destination, $newFilename);
 
-            if($shop->getImage()){
-                unlink($destination.'/'.$shop->getImage());
+                if($shop->getImage()){
+                    unlink($destination.'/'.$shop->getImage());
+                }
+
+                $shop->setImage($newFilename);
+
             }
 
-            $shop->setImage($newFilename);
+            
 
             $this->entityManager->flush();
 
