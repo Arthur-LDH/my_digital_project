@@ -22,7 +22,7 @@ class ModalController extends AbstractController
         $this->reviewRepository = $reviewRepository;
     }
 
-    #[Route('/reviews/{id}', name: 'app_modal_reviews')]
+    #[Route('modal/reviews/{id}', name: 'app_modal_reviews')]
     public function modalReviews(int $id)
     {
         $shop = $this->shopRepository->findOneById($id);
@@ -35,7 +35,7 @@ class ModalController extends AbstractController
         ]);
     }
 
-    #[Route('/selection/{id}', name: 'app_modal_selection')]
+    #[Route('modal/selection/{id}', name: 'app_modal_selection')]
     public function modalSelection(int $id)
     {
         $search = $this->restaurantSearchRepository->findOneById($id);
