@@ -83,28 +83,9 @@ class HomepageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        // Create the review form
-        $review = new Review();
-        $reviewForm = $this->createForm(ShopReviewType::class, $review);
-        $reviewForm->handleRequest($request);
-
-        if ($reviewForm->isSubmitted() && $reviewForm->isValid()) {
-            $review->setShop($shop); // Set the shop for the review
-            $review->setUser($this->getUser()); // Set the user for the review
-            $review->setCreatedAt(new DateTimeImmutable()); // Set the creation date
-
-            // Save the review to the database
-            $this->entityManager->persist($shop);
-            $this->entityManager->persist($review);
-            $this->entityManager->flush();
-
-            // Redirect to a success page or show a success message
-        }
-
         // Pass the form view to the template
         return $this->render('front/result_restaurants.html.twig', [
             'shops' => $shops,
-            'reviewForm' => $reviewForm->createView(),
         ]);
     }
 }

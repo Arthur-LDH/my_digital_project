@@ -25,12 +25,13 @@ class ModalController extends AbstractController
     #[Route('/reviews/{id}', name: 'app_modal_reviews')]
     public function modalReviews(int $id)
     {
-        $shop = $this->shopRepository->findById($id);
+        $shop = $this->shopRepository->findOneById($id);
 
         $reviews = $this->reviewRepository->findByShop($shop);
 
         return $this->render('components/reviews/_reviews.html.twig', [
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'shop' => $shop
         ]);
     }
 

@@ -3,7 +3,40 @@
 {% block title %}- Mes reviews{% endblock %}
 
 {% block content %}
+    {% set maxNote = 5 %}
+    {% set filledStarIcon = '<i class="text-[#FFD700] fa-solid fa-star"></i>' %}
+    {% set halfStarIcon = '<i class="text-[#FFD700] fa-solid fa-star-half-stroke"></i>' %}
+    {% set emptyStarIcon = '<i class="text-[#FFD700] fa-regular fa-star"></i>' %}
     {% for review in reviews %}
+        <div class="rounded-lg bg-gray-100 md:flex md:flex-row p-4 mb-2 w-full">
+            <div class="mx-auto mb-6 flex items-center justify-center md:mx-0 lg:mb-0">
+                <img class="rounded-full shadow-md dark:shadow-black/ w-32 h-32 object-cover" alt="user avatar"
+                {% if review.getUser.avatar %}
+                    src="/uploads/avatar/{{ review.getUser.avatar }}"
+                {% else %}
+                    src="/build/images/default-avatar.png"
+                {% endif %}>
+            </div>
+            <div class="md:ml-6">
+                <p class="mb-2 text-sm font-semibold text-neutral-400 dark:text-neutral-200">
+                    Restaurant : {{ review.getShop.name }}
+                </p>
+                <div class="flex items-center mb-5">
+                    {% set note = review.note %}
+                    {% for i in 1..maxNote %}
+                        {% if i <= note %}
+                            {{ filledStarIcon|raw }}
+                        {% else %}
+                            {{ emptyStarIcon|raw }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="mb-6 text-left text-lg font-light text-neutral-500 dark:text-neutral-300">
+                    {{ review.content }}
+                </p>
+                <a href="{{ path('app_edit_review', {'id': review.id}) }}" role="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modifier ma review</a>
+            </div>
+        </div>
     {% else %}
         Vous n'avez encore écrit aucune review
     {% endfor %}

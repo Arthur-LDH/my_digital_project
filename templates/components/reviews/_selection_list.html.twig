@@ -39,7 +39,7 @@
                             {{ shop.phone }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ecrire une review</a>
+                            <a href="{{ path('app_new_review', {'id': shop.id}) }}" target="_top" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ecrire une review</a>
                         </td>
                     </tr>
                     {% endfor %}

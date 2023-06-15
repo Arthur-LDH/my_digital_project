@@ -1,0 +1,106 @@
+{% extends "front/layout/layout.html.twig" %}
+
+{% block title %} - {% endblock %}
+
+{% block body %}
+{% set maxNote = 5 %}
+{% set filledStarIcon = '<i class="text-[#FFD700] fa-solid fa-star"></i>' %}
+{% set halfStarIcon = '<i class="text-[#FFD700] fa-solid fa-star-half-stroke"></i>' %}
+{% set emptyStarIcon = '<i class="text-[#FFD700] fa-regular fa-star"></i>' %}
+
+<div class="md:container py-24 mx-auto px-6">
+    <section class="my-16 text-center">
+        <div class="grid gap-12 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+
+            <div class="mb-6 lg:mb-0">
+                <div class="relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                    <div class="flex result_container">
+                        <div
+                        class="relative mx-4 -mt-4 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20"
+                        data-te-ripple-init data-te-ripple-color="light">
+                        {% if shop.image %}
+                            <img src="/uploads/shop_image/{{ shop.image }}" class="w-full" />
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h5 class="mb-3 text-lg font-bold">{{ shop.name }}</h5>
+                        <p class="text-md text-blue-200 mb-4">
+                            {% for category in shop.getCategory %}
+                                {{category.name}}
+                            {% endfor %}
+                        </p>
+                        <div class="flex items-center justify-center mb-5">
+                            {% if shop.getReviews|length != 0 %}
+                                {% set reviews = shop.getReviews %}
+                                {% set totalReviews = reviews|length %}
+                                {% set totalScore = reviews|reduce((accumulator, review) => accumulator + review.note, 0) %}
+                                {% set averageScore = totalScore / totalReviews %}
+
+                                {% for i in 0.5..maxNote %}
+                                    {% if i <= averageScore %}
+                                        {% if i == averageScore and averageScore|round(0, 'floor') != averageScore %}
+                                            {{ halfStarIcon|raw }}
+                                        {% else %}
+                                            {{ filledStarIcon|raw }}
+                                        {% endif %}
+                                    {% else %}
+                                        {{ emptyStarIcon|raw }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-sm text-gray-300">Cet établisement n'a pas encore d'avis.</p>
+                            {% endif %}
+                        </div>
+                        <a role="button" class="text-md text-blue-600 hover:text-blue-400" data-te-toggle="modal" data-te-target="#modal_{{shop.id}}" data-te-ripple-init data-te-ripple-color="light">
+                            Voir les reviews
+                        </a>
+                        <p class="mb-4 text-neutral-500 dark:text-neutral-300">
+                        <small><u><a href="tel:{{ shop.phone }}">{{ shop.phone }}</a></u></small>
+                        </p>
+                        {% if shop.description %}
+                        <p class="mb-4 pb-2">
+                            {{ shop.description }}
+                        </p>
+                        {% endif %}
+                        {% if shop.website %}
+                            <a href="http://{{ shop.website }}" data-te-ripple-init data-te-ripple-color="light"
+                            class="inline-block rounded-full bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Site web</a>
+                        {% endif %}
+                        <p class="text-sm text-blue-600 hover:text-blue-400 mt-3">
+                            <a href="{{shop.getAddress.googleLink}}" target="_blank"><i class="fa-solid fa-location-dot"></i> Voir sur Google Maps</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 w-full text-left bg-white rounded-lg px-6 py-8">
+                <h2 class="mb-12 pb-4 text-center text-3xl font-bold">
+                    {{ title }}
+                </h2>
+                {{ form_start(reviewForm) }}
+                <div class="flex w-full justify-center gap-2">
+                    {% for choice in reviewForm.note %}
+                        <div class="flex">
+                            {{ form_widget(choice) }}
+                            <i class="text-[#FFD700] fa fa-star"></i>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                {{ form_row(reviewForm.content) }}
+                
+                {{ form_row(reviewForm.submit) }}
+                {{ form_end(reviewForm) }}
+            </div>
+            
+        </div>
+    </section>
+</div>
+        {{ include('components/reviews/_modal.html.twig', {
+            modalTitle: 'Reviews de ' ~ shop.name,
+            modalTarget: 'modal_' ~ shop.id,
+            turboSrc: path('app_modal_reviews', { 'id' : shop.id }),
+            turboId: 'reviews' ,
+        }) }}
+{% endblock %}

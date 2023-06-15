@@ -7,24 +7,6 @@
     {% set emptyStarIcon = '<i class="text-[#FFD700] fa-regular fa-star"></i>' %}
 
     <section class="background-radial-gradient mb-32 pt-[80px]">
-        <style>
-            .background-radial-gradient {
-                background-color: hsl(218, 41%, 15%);
-                background-image: radial-gradient(650px circle at 0% 0%,
-                    hsl(218, 41%, 35%) 15%,
-                    hsl(218, 41%, 30%) 35%,
-                    hsl(218, 41%, 20%) 75%,
-                    hsl(218, 41%, 19%) 80%,
-                    transparent 100%),
-                radial-gradient(1250px circle at 100% 100%,
-                    hsl(218, 41%, 45%) 15%,
-                    hsl(218, 41%, 30%) 35%,
-                    hsl(218, 41%, 20%) 75%,
-                    hsl(218, 41%, 19%) 80%,
-                    transparent 100%);
-            }
-        </style>
-
         <div class="px-6 py-12 text-center md:px-12 lg:text-left">
             <div class="container mx-auto">
                 <div class="grid items-center gap-12 {% if shops[0].image %}lg:grid-cols-2{% endif %}">
@@ -79,19 +61,9 @@
                         <p class="text-sm text-[hsl(218,81%,95%)] mt-3">
                             {{ shops[0].phone }}
                         </p>
-<<<<<<< HEAD
                         <p class="text-sm text-blue-600 hover:text-blue-400 mt-3">
                             <a href="{{shops[0].getAddress.googleLink}}" target="_blank"><i class="fa-solid fa-location-dot"></i> Voir sur Google Maps</a>
                         </p>
-=======
-
-                            {{ form_start(reviewForm) }}
-                            {{ form_row(reviewForm.content) }}
-                            {{ form_row(reviewForm.note) }}
-                            {{ form_row(reviewForm.submit) }}
-                            {{ form_end(reviewForm) }}
-
->>>>>>> feature/front-office
                     </div>
                     {% if shops[0].image %}
                     <div class="mb-12 lg:mb-0">
@@ -129,7 +101,7 @@
                         class="relative mx-4 -mt-4 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20"
                         data-te-ripple-init data-te-ripple-color="light">
                         {% if shop.image %}
-                            <img src="uploads/shop_image/{{ shop.image }}" class="w-full" />
+                            <img src="/uploads/shop_image/{{ shop.image }}" class="w-full" />
                         {% endif %}
                         </div>
                     </div>
