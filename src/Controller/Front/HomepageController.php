@@ -33,8 +33,9 @@ class HomepageController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $shops = $this->shopRepository->findRestaurants($search);
+            shuffle($shops);
             $request->getSession()->set('shops', $shops);
-            // dd($searchForm->get('street')->getData());
+            
             $restaurantSearch = new RestaurantSearch();
             $restaurantSearch   ->setUserAddress($search->getStreet())
                                 ->setUserCp($search->getPostalCode())
