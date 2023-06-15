@@ -38,6 +38,10 @@ class HomepageController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $shops = $this->shopRepository->findRestaurants($search);
+            if(empty($shops)){
+                $this->addFlash('error', 'Désolé, mais il n\'y a aucun restaurant proche de l\'adresse que vous avez donné.');
+                return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            }
             shuffle($shops);
             $request->getSession()->set('shops', $shops);
 
