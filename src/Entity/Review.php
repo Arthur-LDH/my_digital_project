@@ -24,7 +24,7 @@ class Review
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\ManyToOne(inversedBy: 'reviews', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Shop $shop = null;
 

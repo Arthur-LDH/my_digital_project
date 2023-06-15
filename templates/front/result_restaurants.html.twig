@@ -77,9 +77,19 @@
                         <p class="text-sm text-[hsl(218,81%,95%)] mt-3">
                             {{ shops[0].phone }}
                         </p>
+<<<<<<< HEAD
                         <p class="text-sm text-blue-600 hover:text-blue-400 mt-3">
                             <a href="{{shops[0].getAddress.googleLink}}" target="_blank"><i class="fa-solid fa-location-dot"></i> Voir sur Google Maps</a>
                         </p>
+=======
+
+                            {{ form_start(reviewForm) }}
+                            {{ form_row(reviewForm.content) }}
+                            {{ form_row(reviewForm.note) }}
+                            {{ form_row(reviewForm.submit) }}
+                            {{ form_end(reviewForm) }}
+
+>>>>>>> feature/front-office
                     </div>
                     {% if shops[0].image %}
                     <div class="mb-12 lg:mb-0">
