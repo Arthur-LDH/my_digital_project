@@ -78,16 +78,25 @@ export default class extends Controller {
 
             $('.roulette').removeAttr('id').attr('id', numID);
 
-            setTimeout(removeRoulette, 7000);
+            setTimeout(zoomRoulette, 7000);
         }
 
         $('.roulette').before().click(function () {
             turnRoulette();
         });
 
+        $('.start').click(function () {
+            turnRoulette();
+        });
 
-        function removeRoulette() {
-            $('.roulette-section').addClass('zoom-section')
+
+        function zoomRoulette() {
+            $('.roulette-section').addClass('zoom-section');
+            setTimeout(destroyRoulette, 1500);
+        }
+
+        function destroyRoulette() {
+            $('.roulette-section').remove();
         }
     }
 }
