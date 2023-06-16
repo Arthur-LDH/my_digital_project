@@ -5,6 +5,19 @@
     {% set filledStarIcon = '<i class="text-[#FFD700] fa-solid fa-star"></i>' %}
     {% set halfStarIcon = '<i class="text-[#FFD700] fa-solid fa-star-half-stroke"></i>' %}
     {% set emptyStarIcon = '<i class="text-[#FFD700] fa-regular fa-star"></i>' %}
+    {% set restaurantNames = [] %}
+    {% for shop in shops | slice(0,6) %}
+        {% set restaurantNames = restaurantNames | merge([shop.name]) %}
+    {% endfor %}
+    <section class="roulette-section" {{ stimulus_controller('roulette', {
+        'restaurantNames' : restaurantNames
+    })}}>
+      <div class="roulette-container"> 
+        <div class="start">Start</div>
+          <div class="roulette">
+          </div>
+      </div>
+    </section>
 
     <section class="background-radial-gradient mb-32 pt-[80px]">
         <div class="px-6 py-12 text-center md:px-12 lg:text-left">
