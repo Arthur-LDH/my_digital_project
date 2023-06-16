@@ -9,6 +9,7 @@ export default class extends Controller {
     connect() {
         var rouletteSize = 380;
         var restaurantNames = this.restaurantNamesValue;
+        restaurantNames = checkArrayLength(restaurantNames);
         var numberSlots = restaurantNames.length;
         var slotAngle = 360 / numberSlots;
         var degrees = (180 - slotAngle) / 2;
@@ -53,6 +54,20 @@ export default class extends Controller {
             'border-right-width': (rouletteSize / 2) + 'px',
             'border-left-width': (rouletteSize / 2) + 'px'
         });
+
+        function checkArrayLength(restaurantNames){
+            if(restaurantNames.length <= 5){
+              restaurantNames.forEach(name => {
+                if(restaurantNames.length == 7){
+                  return restaurantNames;
+                }
+                restaurantNames.push(name);
+              })
+      
+              return checkArrayLength(restaurantNames);
+            }
+            return restaurantNames;
+          }
 
         function getRandomColor(i) {
             var colors = ["#2C9D8F", "#F5A261", "#E76F52", "#2C9D8F", "#F5A261", "#E76F52", "#2C9D8F" ]
